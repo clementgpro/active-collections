@@ -1,4 +1,4 @@
 
-public interface IUniqueness extends ICollection {
+public interface IUniqueness<T> extends ICollection<T> {
 
 }

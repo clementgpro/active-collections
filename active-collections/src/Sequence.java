@@ -1,4 +1,4 @@
 
-public class Sequence implements IOrdered {
-
-}
+//public class Sequence implements IOrdered {
+//
+//}

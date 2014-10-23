@@ -2,41 +2,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Bag<T> implements ICollection {
-	private Bag c;
-	private List<T> content;
-	
-	public Bag(){
-		
-	}
+public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
+	private Bag<T> c;
 	
 	public Bag(List<T> content) {
-		super();
-		this.content = content;
+		super(content);
 	}
 	
-	private Bag union(Bag b){
+	public ICollection<T> union(ICollection<T> b){
 		// on cree C
-		List newC = new ArrayList(content);
-		newC.addAll(b.getContent());
+		List<T> newC = contentUnion(b.getContent());
 		
 		// on lie a et b a C
-		this.c = new Bag(newC);
+		linkedTo(new Bag<T>(newC));	
 		b.linkedTo(c);
 		
-		return this.c;
+		return getLinked();
 	}
 	
-	public void add(Object objet){
-		
-	}
-	
-	private void linkedTo(Bag c) {
-		this.c = c;
-	}
-	
-	private List<T> getContent() {
-		return this.content;
+	public void add(T element) {
+		content.add(element);
 	}
 	
 	public String toString(){
@@ -45,20 +30,20 @@ public class Bag<T> implements ICollection {
 	
 	public static void main(String[] args){
 		
-		Bag a = new Bag(new ArrayList<Integer>() {{
+		ICollection a = new Bag(new ArrayList<Integer>() {{
 		    add(1);
 		    add(2);
 		    add(3);
 		}});
-		Bag b = new Bag(new ArrayList<Integer>() {{
+		ICollection b = new Bag(new ArrayList<Integer>() {{
 		    add(4);
 		    add(5);
 		    add(6);
 		}});
-		Bag d = new Bag(new ArrayList<Integer>() {{
+		ICollection d = new Bag(new ArrayList<Integer>() {{
 		    add(7);
 		}});
-		Bag c = a.union(b);
+		ICollection c = a.union(b);
 		a.add(1);
 //		a.getC();
 		System.out.println(c);

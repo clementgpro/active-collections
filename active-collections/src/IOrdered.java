@@ -1,4 +1,4 @@
 
-public interface IOrdered extends ICollection {
+public interface IOrdered<T> extends ICollection<T> {
 
 }
