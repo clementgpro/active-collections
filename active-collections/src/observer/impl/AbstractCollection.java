@@ -7,8 +7,7 @@ import observer.C;
 import observer.Subject;
 import observer.interfaces.ICollection;
 
-public abstract class AbstractCollection<T> extends Subject<T> implements
-		ICollection<T> {
+public abstract class AbstractCollection<T> extends Subject<T> implements ICollection<T> {
 
 	// Content of this collection
 	protected List<T> content;
@@ -33,7 +32,8 @@ public abstract class AbstractCollection<T> extends Subject<T> implements
 	 */
 	public C<T> intersection(AbstractCollection<T> b) {
 		// on cree C
-		final List<T> newList = new ArrayList<T>();;
+		final List<T> newList = new ArrayList<T>();
+		;
 		final List<T> bList = b.getContent();
 
 		for (int i = 0; i < bList.size(); i++) {
