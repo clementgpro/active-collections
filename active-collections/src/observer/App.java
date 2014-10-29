@@ -26,6 +26,8 @@ public class App {
 		});
 		AbstractCollection<Integer> d = new Bag<Integer>(new ArrayList<Integer>() {
 			{
+				add(5);
+				add(6);
 				add(7);
 			}
 		});
@@ -34,5 +36,8 @@ public class App {
 		a.add(1);
 		// a.getC();
 		System.out.println(c);
+		
+		C<Integer> e = b.intersection(d);
+		System.out.println(e);
 	}
 }
