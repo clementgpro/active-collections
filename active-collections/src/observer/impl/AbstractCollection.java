@@ -39,7 +39,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		int i = 0;
 		do {
 			T bListElement = bList.get(i);
-			if (!content.contains(bListElement)) {
+			if (content.contains(bListElement)) {
 				add(newList, bListElement);
 			}
 			i++;
