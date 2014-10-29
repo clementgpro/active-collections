@@ -77,9 +77,10 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 
 		return c;
 	}
-	
+
 	/**
 	 * Function linking this collection and B with C
+	 * 
 	 * @param contentC
 	 * @param b
 	 * @return
