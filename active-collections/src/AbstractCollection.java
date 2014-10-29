@@ -17,11 +17,11 @@ public abstract class AbstractCollection<T> implements ICollection<T> {
 		this.content = new ArrayList<T>();
 	}
 
-	protected List<T> getContent() {
+	public List<T> getContent() {
 		return content;
 	}
 
-	protected void linkedTo(ICollection<T> link) {
+	public void linkedTo(ICollection<T> link) {
 		this.link = link;
 	}
 
@@ -60,12 +60,9 @@ public abstract class AbstractCollection<T> implements ICollection<T> {
 		List<T> newC = new ArrayList<T>(content);
 
 		// evite les doublons
-		List<T> contentOfB = b;
-		int sizeOfB = contentOfB.size();
-		T tmpContent = null;
-		for (int i = 0; i < sizeOfB; i++) {
-			tmpContent = contentOfB.get(i);
-			add(tmpContent);
+		for (int i = 0; i < b.size(); i++) {
+			System.out.println("-" + b.get(i) + "-");
+			add(b.get(i));
 		}
 
 		return newC;

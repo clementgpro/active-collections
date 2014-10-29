@@ -1,13 +1,22 @@
 package observer;
 
-public abstract class Subject<T> {
-	protected Observer<T> c;
+import java.util.ArrayList;
+import java.util.List;
 
-	public void link(Observer<T> c) {
-		this.c = c;
+public abstract class Subject<T> {
+	protected List<Observer<T>> observers;
+
+	public Subject() {
+		this.observers = new ArrayList<Observer<T>>();
+	}
+
+	public void addObserver(Observer<T> c) {
+		this.observers.add(c);
 	}
 
 	public void notifyC(T element) {
-		this.c.update(element);
+		for (Observer<T> o : observers) {
+			o.update(element);
+		}
 	}
 }

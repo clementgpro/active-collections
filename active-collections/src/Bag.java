@@ -17,6 +17,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		linkedTo(new Bag<T>(newC));	
 		b.linkedTo(c);
 		
+		System.out.println("*" + content + "*");
 		return getLinked();
 	}
 	
@@ -44,6 +45,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		    add(7);
 		}});
 		ICollection c = a.union(b);
+		System.out.println(c);
 		a.add(1);
 //		a.getC();
 		System.out.println(c);

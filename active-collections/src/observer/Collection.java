@@ -1,4 +1,5 @@
 package observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,20 +11,24 @@ public class Collection<T> extends Subject<T> {
 	}
 
 	public List<T> union(Collection<T> other) {
+		// c instanciation
 		List<T> newList = new ArrayList<T>();
 		newList.addAll(content);
 		newList.addAll(other.getContent());
-		this.link(new C<T>(newList));
+
+		// link
+		C<T> c = new C<T>(newList);
+		this.addObserver(c);
+		other.addObserver(c);
 		return newList;
 	}
 
-	public void add(T element){
+	public void add(T element) {
 		this.content.add(element);
 		this.notifyC(element);
 	}
-	
+
 	public List<T> getContent() {
 		return this.content;
 	}
-
 }

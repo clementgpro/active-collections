@@ -20,7 +20,8 @@ public class App {
 		System.out.println(c);
 		a.add(9);
 		System.out.println(c);
-		
+		b.add(10);
+		System.out.println(c);
 
 	}
 }
