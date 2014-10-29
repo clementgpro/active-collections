@@ -55,9 +55,20 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	 * @return
 	 */
 	public C<T> intersection(AbstractCollection<T> b) {
-
+		
 		// on cree C
-		List<T> newList = contentIntersection(b.getContent());
+		final List<T> newList = new ArrayList<T>();
+		final List<T> bList = b.getContent();
+
+		final int bListSize = bList.size();
+		int i = 0;
+		do {
+			T bListElement = bList.get(i);
+			if (!content.contains(bListElement)) {
+				add(newList, bListElement);
+			}
+			i++;
+		} while (i < bListSize);
 
 		// link
 		C<T> c = new C<T>(newList);
@@ -90,8 +101,18 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	 * @return
 	 */
 	public C<T> union(AbstractCollection<T> b) {
+
 		// on cree C
-		List<T> newList = contentUnion(b.getContent());
+		final List<T> newList = new ArrayList<T>(content);
+		final List<T> bList = b.getContent();
+
+		// evite les doublons
+		final int bListSize = bList.size();
+		int i = 0;
+		do {
+			add(newList, bList.get(i));
+			i++;
+		} while (i < bListSize);
 		
 		// link
 		C<T> c = new C<T>(newList);
