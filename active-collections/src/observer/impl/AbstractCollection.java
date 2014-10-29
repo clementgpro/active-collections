@@ -39,7 +39,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		int i = 0;
 		do {
 			T bListElement = bList.get(i);
-			if (content.contains(bListElement)) {
+			if (this.content.contains(bListElement)) {
 				add(newList, bListElement);
 			}
 			i++;
@@ -70,6 +70,34 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 			add(newList, bList.get(i));
 			i++;
 		} while (i < bListSize);
+		
+		// link
+		C<T> c = new C<T>(newList);
+		link(c, b);
+
+		return c;
+	}
+	
+	/**
+	 * Difference with another collection
+	 * @param b
+	 * @return
+	 */
+	public C<T> difference(AbstractCollection<T> b) {
+
+		// on cree C
+		final List<T> newList = new ArrayList<T>();
+		final List<T> aList = this.getContent();
+
+		final int aListSize = aList.size();
+		int i = 0;
+		do {
+			T aListElement = aList.get(i);
+			if (!b.getContent().contains(aListElement)) {
+				add(newList, aListElement);
+			}
+			i++;
+		} while (i < aListSize);
 		
 		// link
 		C<T> c = new C<T>(newList);
