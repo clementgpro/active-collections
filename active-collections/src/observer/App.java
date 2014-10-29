@@ -34,7 +34,7 @@ public class App {
 		C<Integer> c = a.union(b);
 		System.out.println(c);
 		a.add(1);
-		// a.getC();
+		//  a.getC();
 		System.out.println(c);
 		
 		C<Integer> e = b.intersection(d);
