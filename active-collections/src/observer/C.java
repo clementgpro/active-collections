@@ -18,4 +18,13 @@ public class C<T> implements Observer<T>{
 	private List<T> getContent() {
 		return content;
 	}		
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("content : { ");
+		for ( T element : content) {
+			sb.append(element + " ; ");
+		}
+		sb.append(" } ");
+		return sb.toString();
+	}
 }

@@ -41,7 +41,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		for (int i = 0; i < sizeOfB; i++) {
 			tmpContent = contentOfB.get(i);
 			if (!content.contains(tmpContent)) {
-				add(tmpContent);
+				add(newC, tmpContent);
 			}
 		}
 
@@ -78,7 +78,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		// evite les doublons
 		for (int i = 0; i < b.size(); i++) {
 			System.out.println("-" + b.get(i) + "-");
-			add(b.get(i));
+			add(newC, b.get(i));
 		}
 
 		return newC;
@@ -111,4 +111,6 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		this.addObserver(c);
 		b.addObserver(c);
 	}
+	
+	protected abstract void add(List<T> newList, T element);
 }
