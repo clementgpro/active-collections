@@ -14,9 +14,9 @@ public abstract class Subject<T> {
 		this.observers.add(c);
 	}
 
-	public void notifyC(T element) {
+	public void notify(T element, EventCollection event) {
 		for (Observer<T> o : observers) {
-			o.update(element);
+			o.update(element, event);
 		}
 	}
 }
