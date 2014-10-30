@@ -32,19 +32,19 @@ public class App {
 		});
 		C<Integer> c = a.union(b);
 		System.out.println(c);
-		//  a.add(1);
-		//  a.getC();
+		// a.add(1);
+		a.remove(1);
+		// a.getC();
 		System.out.println(c);
-		
-		C<Integer> e = b.intersection(d);
-		System.out.println(e);
-		
-		C<Integer> f = a.difference(b);
-		System.out.println("A\\B=" + f);
-		
-		C<Integer> g = b.difference(d);
-		System.out.println("B\\D=" + g);
-		
-		
+
+		// C<Integer> e = b.intersection(d);
+		// System.out.println(e);
+		//
+		// C<Integer> f = a.difference(b);
+		// System.out.println("A\\B=" + f);
+		//
+		// C<Integer> g = b.difference(d);
+		// System.out.println("B\\D=" + g);
+
 	}
 }
