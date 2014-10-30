@@ -1,9 +1,9 @@
-package observer.impl;
+package emn.fil.collection.impl;
 
 import java.util.List;
 
-import observer.EventCollection;
-import observer.interfaces.IUniqueness;
+import emn.fil.collection.interfaces.IUniqueness;
+import emn.fil.collection.obs.event.EventCollection;
 
 public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 

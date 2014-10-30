@@ -1,8 +1,8 @@
-package observer.impl;
+package emn.fil.collection.impl;
 
 import java.util.List;
 
-import observer.interfaces.IOrdered;
+import emn.fil.collection.interfaces.IOrdered;
 
 public class Sequence<T> extends AbstractCollection<T> implements IOrdered<T> {
 	

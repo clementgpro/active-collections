@@ -1,6 +1,8 @@
-package observer;
+package emn.fil.collection.obs.observer;
 
 import java.util.List;
+
+import emn.fil.collection.obs.event.EventCollection;
 
 public class C<T> implements Observer<T> {
 	private List<T> content;

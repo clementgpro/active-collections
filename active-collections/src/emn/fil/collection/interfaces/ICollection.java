@@ -1,9 +1,9 @@
-package observer.interfaces;
+package emn.fil.collection.interfaces;
 
 import java.util.List;
 
-import observer.C;
-import observer.impl.AbstractCollection;
+import emn.fil.collection.impl.AbstractCollection;
+import emn.fil.collection.obs.observer.C;
 
 public interface ICollection<T> {
 	public C<T> union(AbstractCollection<T> b);

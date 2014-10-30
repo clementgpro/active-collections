@@ -1,9 +1,9 @@
-package observer.impl;
+package emn.fil.collection.impl;
 
 import java.util.List;
 
-import observer.EventCollection;
-import observer.interfaces.ICollection;
+import emn.fil.collection.interfaces.ICollection;
+import emn.fil.collection.obs.event.EventCollection;
 
 public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 

@@ -1,11 +1,11 @@
-package observer.impl;
+package emn.fil.collection.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import observer.C;
-import observer.Subject;
-import observer.interfaces.ICollection;
+import emn.fil.collection.interfaces.ICollection;
+import emn.fil.collection.obs.observer.C;
+import emn.fil.collection.obs.subject.Subject;
 
 public abstract class AbstractCollection<T> extends Subject<T> implements ICollection<T> {
 

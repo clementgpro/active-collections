@@ -1,7 +1,10 @@
-package observer;
+package emn.fil.collection.obs.subject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import emn.fil.collection.obs.event.EventCollection;
+import emn.fil.collection.obs.observer.Observer;
 
 public abstract class Subject<T> {
 	protected List<Observer<T>> observers;

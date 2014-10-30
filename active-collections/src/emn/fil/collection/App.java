@@ -1,9 +1,10 @@
-package observer;
+package emn.fil.collection;
 
 import java.util.ArrayList;
 
-import observer.impl.AbstractCollection;
-import observer.impl.Bag;
+import emn.fil.collection.impl.AbstractCollection;
+import emn.fil.collection.impl.Bag;
+import emn.fil.collection.obs.observer.C;
 
 public class App {
 
