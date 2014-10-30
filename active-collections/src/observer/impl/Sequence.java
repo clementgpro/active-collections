@@ -22,4 +22,10 @@ public class Sequence<T> extends AbstractCollection<T> implements IOrdered<T> {
 		
 	}
 
+	@Override
+	public void remove(T element) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

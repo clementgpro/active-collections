@@ -22,5 +22,11 @@ public class OrderedSet<T> extends AbstractCollection<T> {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void remove(T element) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
