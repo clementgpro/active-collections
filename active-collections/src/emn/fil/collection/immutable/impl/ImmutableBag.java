@@ -3,6 +3,7 @@ package emn.fil.collection.immutable.impl;
 import java.util.List;
 
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
 
 public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements IImmutableCollection<T> {
 
@@ -14,15 +15,15 @@ public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements I
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void add(T element) {
-		this.getContent().add(element);
+	protected void add(EventCollectionMessage<T> event) {
+		this.getContent().add(event.getElement());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void remove(T element) {
-		this.getContent().remove(element);
+	protected void remove(EventCollectionMessage<T> event) {
+		this.getContent().remove(event.getElement());
 	}
 }

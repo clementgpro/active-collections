@@ -29,10 +29,10 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		}
 	}
 
-	public void remove(T element) {
-		this.getContent().remove(element);
-		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
-	}
+//	public void remove(T element) {
+//		this.getContent().remove(element);
+//		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
+//	}
 
 	public String toString() {
 		return this.getContent().toString();

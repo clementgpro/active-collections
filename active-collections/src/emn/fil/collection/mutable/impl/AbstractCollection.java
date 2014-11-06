@@ -6,6 +6,8 @@ import java.util.List;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.ICollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.event.TypeEventEnum;
 import emn.fil.collection.obs.subject.Subject;
 
 public abstract class AbstractCollection<T> extends Subject<T> implements ICollection<T> {
@@ -21,6 +23,11 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		this.content = new ArrayList<T>();
 	}
 
+	public void remove(T element) {
+		this.getContent().remove(element);
+		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

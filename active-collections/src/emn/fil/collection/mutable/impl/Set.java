@@ -31,13 +31,13 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 		}
 	}
 
-	public void remove(T element) {
-		if (!this.content.contains(element))
-		{
-			this.content.remove(element);
-			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
-		}
-	}
+//	public void remove(T element) {
+//		if (this.content.contains(element))
+//		{
+//			this.content.remove(element);
+//			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
+//		}
+//	}
 	
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
