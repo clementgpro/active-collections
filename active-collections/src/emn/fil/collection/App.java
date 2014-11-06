@@ -33,8 +33,8 @@ public class App {
 		});
 		AbstractImmutableCollection<Integer> c = a.union(b);
 		System.out.println(c);
-		a.add(1);
-		// a.remove(1);
+		// a.add(1);
+		a.remove(1);
 		// a.getC();
 		System.out.println(c);
 

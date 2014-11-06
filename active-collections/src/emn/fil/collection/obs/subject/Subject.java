@@ -3,7 +3,7 @@ package emn.fil.collection.obs.subject;
 import java.util.ArrayList;
 import java.util.List;
 
-import emn.fil.collection.obs.event.EventCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
 
 public abstract class Subject<T> {
@@ -17,9 +17,9 @@ public abstract class Subject<T> {
 		this.observers.add(c);
 	}
 
-	public void notify(T element, EventCollection event) {
+	public void notify(EventCollectionMessage<T> event) {
 		for (Observer<T> o : observers) {
-			o.update(element, event);
+			o.update(event);
 		}
 	}
 }

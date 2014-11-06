@@ -3,7 +3,8 @@ package emn.fil.collection.mutable.impl;
 import java.util.List;
 
 import emn.fil.collection.mutable.interfaces.IUniqueness;
-import emn.fil.collection.obs.event.EventCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.event.TypeEventEnum;
 
 public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 
@@ -23,7 +24,7 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 	public void add(T element) {
 		if (this.add(getContent(), element))
 		{
-			this.notify(element, EventCollection.ADD);
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
 		}
 	}
 
@@ -31,7 +32,7 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 		if (!this.content.contains(element))
 		{
 			this.content.remove(element);
-			this.notify(element, EventCollection.REMOVE);
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
 		}
 	}
 
