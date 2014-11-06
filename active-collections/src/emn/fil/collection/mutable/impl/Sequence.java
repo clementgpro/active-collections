@@ -12,36 +12,41 @@ import emn.fil.collection.obs.event.TypeEventEnum;
 
 public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 
-	private int index;
-
 	public Sequence(List<T> content) {
 		super(content);
-		this.index = 0;
 	}
 
-	@Override
-	protected boolean add(List<T> newList, T element) {
-		newList.add(getIndex(), element);
-		this.index++;
-		return true;
+	/*
+	 * Defined in Bag
+	 */
+//	@Override
+//	protected boolean add(List<T> newList, T element) {
+//		newList.add(element);
+//		return true;
+//	}
+
+//	public void add(T element) {
+//		if (this.add(getContent(), element))
+//		{
+//			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
+//		}
+//	}
+	
+	public void add(int index, T element) {
+		this.content.add(index, element);	
+		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 	}
 
-	public void add(T element) {
-		if (this.add(getContent(), element))
-		{
-			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
-		}
-	}
-
-	@Override
-	public void remove(T element) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public int getIndex() {
-		return index;
-	}
+//	@Override
+//	public void remove(T element) {
+//		this.content.remove(element);
+//		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
+//	}
+//	
+//	public void remove(int index) {
+//		this.content.remove(index);
+//		this.notify(new EventCollectionMessage<T>(null, TypeEventEnum.REMOVE, index));
+//	}
 	
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {

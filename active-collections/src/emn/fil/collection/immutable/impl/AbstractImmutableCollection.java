@@ -35,10 +35,10 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	public void update(final EventCollectionMessage<T> event) {
 		switch (event.getEventCollection()) {
 		case ADD:
-			this.add(event.getElement());
+			this.add(event);
 			break;
 		case REMOVE:
-			this.remove(event.getElement());
+			this.remove(event);
 			break;
 		default:
 			break;
@@ -51,7 +51,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param element
 	 *            the element to add
 	 */
-	protected abstract void add(T element);
+	protected abstract void add(EventCollectionMessage<T> event);
 
 	/**
 	 * Remove the element in the list following the type of the collection
@@ -60,7 +60,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param element
 	 *            the element to add
 	 */
-	protected abstract void remove(T element);
+	protected abstract void remove(EventCollectionMessage<T> event);
 
 	/**
 	 * Get the content of the collection.
