@@ -4,7 +4,7 @@ import java.util.List;
 
 import emn.fil.collection.immutable.interfaces.IImmutableUniqueness;
 
-public class ImmutableSet<T> extends AbstractImmutableCollection<T> implements IImmutableUniqueness<T> {
+public class ImmutableSet<T> extends ImmutableBag<T> implements IImmutableUniqueness<T> {
 
 	public ImmutableSet(List<T> content) {
 		super(content);

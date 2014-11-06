@@ -4,7 +4,7 @@ import java.util.List;
 
 import emn.fil.collection.immutable.interfaces.IImmutableOrdered;
 
-public class ImmutableSequence<T> extends AbstractImmutableCollection<T> implements IImmutableOrdered<T> {
+public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableOrdered<T> {
 
 	private int index;
 	
