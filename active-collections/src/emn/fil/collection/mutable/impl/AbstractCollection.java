@@ -1,15 +1,16 @@
-package emn.fil.collection.impl;
+package emn.fil.collection.mutable.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import emn.fil.collection.interfaces.ICollection;
-import emn.fil.collection.obs.observer.C;
+import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
+import emn.fil.collection.immutable.impl.ImmutableBag;
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.subject.Subject;
 
 public abstract class AbstractCollection<T> extends Subject<T> implements ICollection<T> {
 
-	// Content of this collection
+	/** Content of this collection. */
 	protected List<T> content;
 
 	public AbstractCollection(List<T> content) {
@@ -20,19 +21,12 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		this.content = new ArrayList<T>();
 	}
 
-	public List<T> getContent() {
-		return content;
-	}
-
 	/**
-	 * Intersection with another collection
-	 * 
-	 * @param b
-	 * @return
+	 * {@inheritDoc}
 	 */
-	public C<T> intersection(AbstractCollection<T> b) {
+	public AbstractImmutableCollection<T> intersection(AbstractCollection<T> b) {
 
-		// on cree C
+		// we create C
 		final List<T> newList = new ArrayList<T>();
 		final List<T> bList = b.getContent();
 
@@ -49,19 +43,16 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < bListSize);
 
 		// link
-		C<T> c = new C<T>(newList);
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
 		link(c, b);
 
 		return c;
 	}
 
 	/**
-	 * Union with another collection
-	 * 
-	 * @param b
-	 * @return
+	 * {@inheritDoc}
 	 */
-	public C<T> union(AbstractCollection<T> b) {
+	public AbstractImmutableCollection<T> union(AbstractCollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>(content);
@@ -77,19 +68,16 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < bListSize);
 
 		// link
-		C<T> c = new C<T>(newList);
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
 		link(c, b);
 
 		return c;
 	}
 
 	/**
-	 * Difference with another collection
-	 * 
-	 * @param b
-	 * @return
+	 * {@inheritDoc}
 	 */
-	public C<T> difference(AbstractCollection<T> b) {
+	public AbstractImmutableCollection<T> difference(AbstractCollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>();
@@ -108,7 +96,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < aListSize);
 
 		// link
-		C<T> c = new C<T>(newList);
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
 		link(c, b);
 
 		return c;
@@ -121,11 +109,18 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	 * @param b
 	 * @return
 	 */
-	private void link(C<T> c, AbstractCollection<T> b) {
+	private void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
 		// link
 		this.addObserver(c);
 		b.addObserver(c);
 	}
 
-	protected abstract boolean add(List<T> newList, T element);
+	/**
+	 * {@inheritDoc}
+	 */
+	public abstract boolean add(List<T> newList, T element);
+
+	public List<T> getContent() {
+		return content;
+	}
 }

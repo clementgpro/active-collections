@@ -1,11 +1,10 @@
-package emn.fil.collection.impl;
+package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
-public class OrderedSet<T> extends AbstractCollection<T> {
+public class OrderedSet<T> extends Set<T> {
 
-	private Set<T> set;
-	private Sequence<T> sequuence;
+	private Sequence<T> sequence;
 
 	public OrderedSet(List<T> content) {
 		super(content);
@@ -17,7 +16,7 @@ public class OrderedSet<T> extends AbstractCollection<T> {
 	}
 
 	@Override
-	protected boolean add(List<T> newList, T element) {
+	public boolean add(List<T> newList, T element) {
 		return false;
 	}
 

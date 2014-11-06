@@ -1,8 +1,8 @@
-package emn.fil.collection.impl;
+package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
-import emn.fil.collection.interfaces.ICollection;
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollection;
 
 public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
@@ -11,7 +11,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		super(content);
 	}
 
-	protected boolean add(List<T> newList, T element) {
+	public boolean add(List<T> newList, T element) {
 		return newList.add(element);
 	}
 

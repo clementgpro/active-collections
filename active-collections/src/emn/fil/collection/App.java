@@ -2,9 +2,9 @@ package emn.fil.collection;
 
 import java.util.ArrayList;
 
-import emn.fil.collection.impl.AbstractCollection;
-import emn.fil.collection.impl.Bag;
-import emn.fil.collection.obs.observer.C;
+import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
+import emn.fil.collection.mutable.impl.AbstractCollection;
+import emn.fil.collection.mutable.impl.Bag;
 
 public class App {
 
@@ -31,10 +31,10 @@ public class App {
 				add(7);
 			}
 		});
-		C<Integer> c = a.union(b);
+		AbstractImmutableCollection<Integer> c = a.union(b);
 		System.out.println(c);
-		// a.add(1);
-		a.remove(1);
+		a.add(1);
+		// a.remove(1);
 		// a.getC();
 		System.out.println(c);
 

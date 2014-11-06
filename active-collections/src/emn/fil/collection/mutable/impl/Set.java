@@ -1,8 +1,8 @@
-package emn.fil.collection.impl;
+package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
-import emn.fil.collection.interfaces.IUniqueness;
+import emn.fil.collection.mutable.interfaces.IUniqueness;
 import emn.fil.collection.obs.event.EventCollection;
 
 public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
@@ -11,7 +11,7 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 		super(content);
 	}
 
-	protected boolean add(List<T> newC, T element) {
+	public boolean add(List<T> newC, T element) {
 		boolean added = false;
 		if (!newC.contains(element))
 		{
