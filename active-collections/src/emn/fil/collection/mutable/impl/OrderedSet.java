@@ -12,16 +12,16 @@ public class OrderedSet<T> extends Set<T> {
 
 	@Override
 	public void add(T element) {
-		// return false;
+		super.add(element);
 	}
 
 	@Override
-	public boolean add(List<T> newList, T element) {
-		return false;
+	protected boolean add(List<T> newList, T element) {
+		return super.add(newList, element);
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
+		super.remove(element);
 	}
 }

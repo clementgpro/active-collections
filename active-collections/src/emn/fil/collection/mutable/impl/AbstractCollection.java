@@ -118,7 +118,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	/**
 	 * {@inheritDoc}
 	 */
-	public abstract boolean add(List<T> newList, T element);
+	protected abstract boolean add(List<T> newList, T element);
 
 	public List<T> getContent() {
 		return content;

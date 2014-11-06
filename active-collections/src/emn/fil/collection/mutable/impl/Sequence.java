@@ -15,7 +15,7 @@ public class Sequence<T> extends AbstractCollection<T> implements IOrdered<T> {
 	}
 
 	@Override
-	public boolean add(List<T> newList, T element) {
+	protected boolean add(List<T> newList, T element) {
 		newList.add(getIndex(), element);
 		this.index++;
 		return true;

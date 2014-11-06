@@ -11,7 +11,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		super(content);
 	}
 
-	public boolean add(List<T> newList, T element) {
+	protected boolean add(List<T> newList, T element) {
 		return newList.add(element);
 	}
 

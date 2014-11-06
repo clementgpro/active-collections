@@ -11,7 +11,7 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 		super(content);
 	}
 
-	public boolean add(List<T> newC, T element) {
+	protected boolean add(List<T> newC, T element) {
 		boolean added = false;
 		if (!newC.contains(element))
 		{
@@ -28,7 +28,7 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 	}
 
 	public void remove(T element) {
-		if (!content.contains(element))
+		if (!this.content.contains(element))
 		{
 			this.content.remove(element);
 			this.notify(element, EventCollection.REMOVE);
