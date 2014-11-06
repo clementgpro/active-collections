@@ -119,5 +119,5 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		b.addObserver(c);
 	}
 	
-	protected abstract void add(List<T> newList, T element);
+	protected abstract boolean add(List<T> newList, T element);
 }

@@ -11,10 +11,11 @@ public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
 		super(content);
 	}
 
-	protected void add(List<T> newC, T element) {
+	protected boolean add(List<T> newC, T element) {
 		if (!newC.contains(element)) {
-			newC.add(element);
+			return newC.add(element);
 		}
+		return false;
 	}
 
 	public void add(T element) {

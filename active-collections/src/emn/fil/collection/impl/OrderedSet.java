@@ -17,9 +17,9 @@ public class OrderedSet<T> extends Set<T> {
 	}
 
 	@Override
-	protected void add(List<T> newList, T element) {
+	protected boolean add(List<T> newList, T element) {
 		// TODO Auto-generated method stub
-		super.add(newList, element);
+		return super.add(newList, element);
 	}
 
 	@Override

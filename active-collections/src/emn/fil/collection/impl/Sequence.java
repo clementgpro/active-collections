@@ -17,9 +17,9 @@ public class Sequence<T> extends AbstractCollection<T> implements IOrdered<T> {
 	}
 
 	@Override
-	protected void add(List<T> newList, T element) {
+	protected boolean add(List<T> newList, T element) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 
 	@Override
