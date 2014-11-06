@@ -2,6 +2,9 @@ package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
+import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
+import emn.fil.collection.immutable.impl.ImmutableBag;
+
 public class OrderedSet<T> extends Set<T> {
 
 	private Sequence<T> sequence;
@@ -23,5 +26,12 @@ public class OrderedSet<T> extends Set<T> {
 	@Override
 	public void remove(T element) {
 		super.remove(element);
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+		link(c, b);
+		return c;
 	}
 }

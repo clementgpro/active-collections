@@ -43,8 +43,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < bListSize);
 
 		// link
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
-		link(c, b);
+		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
@@ -68,8 +67,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < bListSize);
 
 		// link
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
-		link(c, b);
+		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
@@ -96,8 +94,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		} while (i < aListSize);
 
 		// link
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
-		link(c, b);
+		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
@@ -109,18 +106,20 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	 * @param b
 	 * @return
 	 */
-	private void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
+	protected void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
 		// link
 		this.addObserver(c);
 		b.addObserver(c);
+	}
+	
+	public List<T> getContent() {
+		return content;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected abstract boolean add(List<T> newList, T element);
-
-	public List<T> getContent() {
-		return content;
-	}
+	
+	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
 }

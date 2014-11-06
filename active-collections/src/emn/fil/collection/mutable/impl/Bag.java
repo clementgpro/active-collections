@@ -2,6 +2,8 @@ package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
+import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
+import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -30,5 +32,12 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 
 	public String toString() {
 		return this.getContent().toString();
+	}
+
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+		link(c, b);
+		return c;
 	}
 }

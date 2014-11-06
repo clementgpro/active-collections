@@ -2,6 +2,8 @@ package emn.fil.collection.mutable.impl;
 
 import java.util.List;
 
+import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
+import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -34,6 +36,13 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 			this.content.remove(element);
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
 		}
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+		link(c, b);
+		return c;
 	}
 
 }
