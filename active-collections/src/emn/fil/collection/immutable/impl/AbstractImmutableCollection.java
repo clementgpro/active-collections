@@ -3,7 +3,7 @@ package emn.fil.collection.immutable.impl;
 import java.util.List;
 
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
-import emn.fil.collection.obs.event.EventCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
 
 /**
@@ -32,18 +32,17 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void update(T element, EventCollection event) {
-		switch (event) {
+	public void update(final EventCollectionMessage<T> event) {
+		switch (event.getEventCollection()) {
 		case ADD:
-			this.add(element);
+			this.add(event.getElement());
 			break;
 		case REMOVE:
-			this.remove(element);
+			this.remove(event.getElement());
 			break;
 		default:
 			break;
 		}
-
 	}
 
 	/**

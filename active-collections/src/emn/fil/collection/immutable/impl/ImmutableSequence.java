@@ -6,9 +6,11 @@ import emn.fil.collection.immutable.interfaces.IImmutableOrdered;
 
 public class ImmutableSequence<T> extends AbstractImmutableCollection<T> implements IImmutableOrdered<T> {
 
+	private int index;
+	
 	public ImmutableSequence(List<T> content) {
 		super(content);
-		// TODO Auto-generated constructor stub
+		this.index = 0;
 	}
 
 	/**
@@ -16,7 +18,7 @@ public class ImmutableSequence<T> extends AbstractImmutableCollection<T> impleme
 	 */
 	@Override
 	protected void add(T element) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**

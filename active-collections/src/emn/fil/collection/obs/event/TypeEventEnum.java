@@ -1,5 +1,5 @@
 package emn.fil.collection.obs.event;
 
-public enum EventCollection {
+public enum TypeEventEnum {
 	ADD, REMOVE
 }

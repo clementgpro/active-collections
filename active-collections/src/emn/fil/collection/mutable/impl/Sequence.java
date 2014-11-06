@@ -3,7 +3,8 @@ package emn.fil.collection.mutable.impl;
 import java.util.List;
 
 import emn.fil.collection.mutable.interfaces.IOrdered;
-import emn.fil.collection.obs.event.EventCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.event.TypeEventEnum;
 
 public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 
@@ -24,7 +25,7 @@ public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 	public void add(T element) {
 		if (this.add(getContent(), element))
 		{
-			this.notify(element, EventCollection.ADD);
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
 		}
 	}
 
