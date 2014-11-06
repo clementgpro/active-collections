@@ -5,7 +5,7 @@ import java.util.List;
 import emn.fil.collection.mutable.interfaces.IOrdered;
 import emn.fil.collection.obs.event.EventCollection;
 
-public class Sequence<T> extends AbstractCollection<T> implements IOrdered<T> {
+public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 
 	private int index;
 

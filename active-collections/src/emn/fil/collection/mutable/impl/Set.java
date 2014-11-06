@@ -5,7 +5,7 @@ import java.util.List;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
 import emn.fil.collection.obs.event.EventCollection;
 
-public class Set<T> extends AbstractCollection<T> implements IUniqueness<T> {
+public class Set<T> extends Bag<T> implements IUniqueness<T> {
 
 	public Set(List<T> content) {
 		super(content);
