@@ -27,5 +27,4 @@ public class OrderedSet<T> extends Set<T> {
 		// TODO Auto-generated method stub
 		super.remove(element);
 	}
-	
 }

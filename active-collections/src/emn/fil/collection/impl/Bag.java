@@ -10,7 +10,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	public Bag(List<T> content) {
 		super(content);
 	}
-	
+
 	protected boolean add(List<T> newList, T element) {
 		return newList.add(element);
 	}
