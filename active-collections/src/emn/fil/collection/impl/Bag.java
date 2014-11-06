@@ -11,21 +11,23 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		super(content);
 	}
 
-	protected void add(List<T> newList, T element) {
-		newList.add(element);
+	protected boolean add(List<T> newList, T element) {
+		return newList.add(element);
 	}
 
 	public void add(T element) {
-		this.content.add(element);
-		this.notify(element, EventCollection.ADD);
+		if (this.add(this.getContent(), element))
+		{
+			this.notify(element, EventCollection.ADD);
+		}
 	}
 
 	public void remove(T element) {
-		this.content.remove(element);
+		this.getContent().remove(element);
 		this.notify(element, EventCollection.REMOVE);
 	}
 
 	public String toString() {
-		return this.content.toString();
+		return this.getContent().toString();
 	}
 }
