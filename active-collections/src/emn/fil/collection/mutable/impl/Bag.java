@@ -46,4 +46,11 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		link(c, null);
 		return c;
 	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+		link(c, null);
+		return c;
+	}
 }

@@ -38,4 +38,11 @@ public class OrderedSet<T> extends Set<T> {
 		link(c, null);
 		return c;
 	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList);
+		link(c, null);
+		return c;
+	}
 }
