@@ -132,7 +132,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		for (T element : this.content) {
 			newList.add(func.proceed(element));
 		}
-		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList);
+		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
 		return b;
 	}
 	
@@ -143,7 +143,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 				newList.add(element);
 			}	
 		}
-		AbstractImmutableCollection<T> b = this.createCollectionType(newList);
+		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
 		return b;
 	}
 
@@ -155,7 +155,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	
 	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
 	
-	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList);
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, FunctionSelec<T> func);
 	
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList);
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func);
 }

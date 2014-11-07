@@ -2,6 +2,8 @@ package emn.fil.collection.immutable.impl;
 
 import java.util.List;
 
+import emn.fil.collection.functions.FunctionApply;
+import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.interfaces.IImmutableOrdered;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 
@@ -9,6 +11,14 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 
 	public ImmutableSequence(List<T> content) {
 		super(content);
+	}
+	
+	public ImmutableSequence(List<T> content, FunctionApply<T> func) {
+		super(content, func);
+	}
+
+	public ImmutableSequence(List<T> content, FunctionSelec<T> func) {
+		super(content, func);
 	}
 
 	/**
