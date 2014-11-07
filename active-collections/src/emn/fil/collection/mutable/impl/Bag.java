@@ -23,16 +23,11 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	}
 
 	public void add(T element) {
-		if (this.add(this.getContent(), element))
+		if (this.add(this.content, element))
 		{
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
 		}
 	}
-
-//	public void remove(T element) {
-//		this.getContent().remove(element);
-//		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
-//	}
 
 	public String toString() {
 		return this.getContent().toString();
@@ -42,6 +37,13 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
 		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
 		link(c, b);
+		return c;
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+		link(c, null);
 		return c;
 	}
 }

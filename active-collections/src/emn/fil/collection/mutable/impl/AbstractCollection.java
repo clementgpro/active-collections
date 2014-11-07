@@ -3,6 +3,8 @@ package emn.fil.collection.mutable.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import emn.fil.collection.functions.FunctionApply;
+import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.ICollection;
@@ -107,7 +109,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	}
 
 	/**
-	 * Function linking this collection and B with C
+	 * Function linking this collection and B with C (if B isn't null)
 	 * 
 	 * @param contentC
 	 * @param b
@@ -116,17 +118,42 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	protected void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
 		// link
 		this.addObserver(c);
-		b.addObserver(c);
+		if (b != null) {
+			b.addObserver(c);
+		}
 	}
 	
 	public List<T> getContent() {
 		return content;
 	}
+	
+	public AbstractImmutableCollection<T> apply(FunctionApply<T> func) {
+		List<T> newList = new ArrayList<T>();
+		for (T element : this.content) {
+			newList.add(func.proceed(element));
+		}
+		AbstractImmutableCollection<T> b = this.createCollectionType(newList);
+		return b;
+	}
+	
+	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func) {
+		List<T> newList = new ArrayList<T>();
+		for (T element : this.content) {
+			if (func.proceed(element)) {
+				newList.add(element);
+			}	
+		}
+		AbstractImmutableCollection<T> b = this.createCollectionType(newList);
+		return b;
+	}
 
 	/**
-	 * {@inheritDoc}
+	 * Function used inside the collection classes
+	 * They are implemented by subclasses to match the requirement of the collection type
 	 */
 	protected abstract boolean add(List<T> newList, T element);
 	
 	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
+	
+	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList);
 }

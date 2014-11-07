@@ -4,6 +4,7 @@ import java.util.List;
 
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
+import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.immutable.impl.ImmutableSet;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
 import emn.fil.collection.obs.event.EventCollectionMessage;
@@ -23,21 +24,6 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 		}
 		return added;
 	}
-
-	public void add(T element) {
-		if (this.add(getContent(), element))
-		{
-			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
-		}
-	}
-
-//	public void remove(T element) {
-//		if (this.content.contains(element))
-//		{
-//			this.content.remove(element);
-//			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
-//		}
-//	}
 	
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
@@ -48,6 +34,13 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 			c = new ImmutableSet<T>(newList);
 		}
 		link(c, b);
+		return c;
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableSet<T>(newList);
+		link(c, null);
 		return c;
 	}
 

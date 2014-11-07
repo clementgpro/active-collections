@@ -15,24 +15,6 @@ public class OrderedSet<T> extends Set<T> {
 	public OrderedSet(List<T> content) {
 		super(content);
 	}
-
-	/**
-	 * Useless for the moment (same as the parent class)
-	 */
-//	@Override
-//	public void add(T element) {
-//		super.add(element);
-//	}
-//
-//	@Override
-//	protected boolean add(List<T> newList, T element) {
-//		return super.add(newList, element);
-//	}
-//
-//	@Override
-//	public void remove(T element) {
-//		super.remove(element);
-//	}
 	
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
@@ -47,6 +29,13 @@ public class OrderedSet<T> extends Set<T> {
 			 c = new ImmutableOrderedSet<T>(newList);
 		}
 		link(c, b);
+		return c;
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
+		link(c, null);
 		return c;
 	}
 }
