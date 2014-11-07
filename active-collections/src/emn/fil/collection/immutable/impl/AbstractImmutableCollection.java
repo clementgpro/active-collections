@@ -18,11 +18,10 @@ import emn.fil.collection.obs.observer.Observer;
 public abstract class AbstractImmutableCollection<T> implements Observer<T>, IImmutableCollection<T> {
 	/** The content of the collection. */
 	private List<T> content;
-	
+
 	/** The Function used to create this collection */
 	private FunctionApply<T> functionApply;
 	private FunctionSelec<T> functionSelec;
-	
 
 	/**
 	 * Constructor for AbstractImmutableCollection
@@ -34,26 +33,28 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 		super();
 		this.content = content;
 	}
-	
+
 	/**
 	 * Constructor for AbstractImmutableCollection
 	 * 
 	 * @param content
 	 *            the content of the collection
-	 * @param functionApply function used to create this collection
+	 * @param functionApply
+	 *            function used to create this collection
 	 */
 	public AbstractImmutableCollection(List<T> content, FunctionApply<T> functionApply) {
 		super();
 		this.content = content;
 		this.functionApply = functionApply;
 	}
-	
+
 	/**
 	 * Constructor for AbstractImmutableCollection
 	 * 
 	 * @param content
 	 *            the content of the collection
-	 * @param functionSelec function used to create this collection
+	 * @param functionSelec
+	 *            function used to create this collection
 	 */
 	public AbstractImmutableCollection(List<T> content, FunctionSelec<T> functionSelec) {
 		super();
@@ -68,15 +69,18 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	public void update(final EventCollectionMessage<T> event) {
 		switch (event.getEventCollection()) {
 		case ADD:
-			
-			if (functionSelec != null && !functionSelec.proceed(event.getElement())) {
+
+			if (functionSelec != null && !functionSelec.proceed(event.getElement()))
+			{
 				// Add element only if it's matching predicate
 				break;
-			} else if (functionApply != null) {
+			}
+			else if (functionApply != null)
+			{
 				// Modify element to match the function before adding
 				event.setElement(functionApply.proceed(event.getElement()));
 			}
-			
+
 			this.add(event);
 			break;
 		case REMOVE:
@@ -88,7 +92,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	}
 
 	/**
-	 * Add the element in the list following the type of the collection itselft.
+	 * Add the element in the list following the type of the collection itself.
 	 * 
 	 * @param element
 	 *            the element to add
@@ -97,7 +101,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 
 	/**
 	 * Remove the element in the list following the type of the collection
-	 * itselft.
+	 * itself.
 	 * 
 	 * @param element
 	 *            the element to add
