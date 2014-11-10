@@ -1,9 +1,9 @@
 package emn.fil.collection.immutable.impl;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 
@@ -17,7 +17,7 @@ public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements I
 		super(content, func);
 	}
 
-	public ImmutableBag(List<T> content, FunctionSelec<T> func) {
+	public ImmutableBag(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
 

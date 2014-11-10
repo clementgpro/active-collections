@@ -1,9 +1,9 @@
 package emn.fil.collection.immutable.impl;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 
 public class ImmutableOrderedSet<T> extends ImmutableSet<T> {
@@ -18,7 +18,7 @@ public class ImmutableOrderedSet<T> extends ImmutableSet<T> {
 		super(content, func);
 	}
 
-	public ImmutableOrderedSet(List<T> content, FunctionSelec<T> func) {
+	public ImmutableOrderedSet(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
 

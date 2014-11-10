@@ -1,9 +1,9 @@
 package emn.fil.collection.immutable.impl;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.interfaces.IImmutableUniqueness;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 
@@ -17,7 +17,7 @@ public class ImmutableSet<T> extends ImmutableBag<T> implements IImmutableUnique
 		super(content, func);
 	}
 
-	public ImmutableSet(List<T> content, FunctionSelec<T> func) {
+	public ImmutableSet(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
 

@@ -1,9 +1,9 @@
 package emn.fil.collection.mutable.interfaces;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 
@@ -66,5 +66,37 @@ public interface ICollection<T> {
 	 * @param func
 	 * @return
 	 */
-	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func);
+	public AbstractImmutableCollection<T> selection(Predicate<T> func);
+	
+	/**
+	 * Check if this collection contains the same elements as B collection
+	 * @param b
+	 * @return
+	 */
+	public boolean exists(AbstractCollection<T> b);
+	
+	/**
+	 * Return a collection which match the uniqueness predicate
+	 * @return
+	 */
+	public AbstractImmutableCollection<T> toUnique();
+	
+	/**
+	 * Return a collection of A without element of B
+	 * @param b
+	 * @return
+	 */
+	public AbstractImmutableCollection<T> reject(AbstractCollection<T> b);
+	
+	/**
+	 * Check if the collection is empty
+	 * @return true or false
+	 */
+	public boolean isEmpty();
+	
+	/**
+	 * Return the number of element T contain in this collection
+	 * @return
+	 */
+	public int size();
 }

@@ -2,11 +2,12 @@ package emn.fil.collection.mutable.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
-import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -28,6 +29,14 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	public void remove(T element) {
 		this.getContent().remove(element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
+	}
+	
+	public boolean isEmpty() {
+		return this.content.isEmpty();
+	}
+	
+	public int size() {
+		return this.content.size();
 	}
 
 	/**
@@ -146,15 +155,53 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		return b;
 	}
 	
-	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func) {
-		List<T> newList = new ArrayList<T>();
-		for (T element : this.content) {
-			if (func.proceed(element)) {
-				newList.add(element);
-			}	
-		}
-		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
+//	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func) {
+//		List<T> newList = new ArrayList<T>();
+//		for (T element : this.content) {
+//			if (func.proceed(element)) {
+//				newList.add(element);
+//			}	
+//		}
+//		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
+//			
+//		return b;
+//	}
+	
+	public AbstractImmutableCollection<T> selection(Predicate<T> func) {
+		
+		List<T> newList = this.content.stream()
+				.filter(func)
+				.collect(Collectors.toList());
+		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, null);
+		
 		return b;
+	}
+	
+	public boolean exists(AbstractCollection<T> b) {
+		Predicate<T> func = (T e) -> {
+			return b.getContent().contains(e);
+		};
+		return this.selection(func).size() == b.size();
+	}
+	
+	public AbstractImmutableCollection<T> toUnique() {
+		List<T> tmpList = new ArrayList<T>();
+		Predicate<T> func = (T e) -> {
+			if (tmpList.contains(e)) {
+				return false;
+			} else {
+				tmpList.add(e);
+				return true;
+			}
+		};
+		
+		return this.selection(func);
+	}
+	
+	public AbstractImmutableCollection<T> reject(AbstractCollection<T> b) {
+		
+		
+		return null;
 	}
 
 	/**
@@ -165,7 +212,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 
 	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
 	
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, FunctionSelec<T> func);
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
 	
 	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func);
 }

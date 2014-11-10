@@ -39,4 +39,15 @@ public class TestingClass {
 	public String toString() {
 		return age + " " + name + " " + numero;
 	}
+	
+	public boolean equals(Object o) {
+		if (o instanceof TestingClass //
+				&& ((TestingClass)o).getAge() == this.age //
+				&& ((TestingClass)o).getName().equals(this.name) //
+				&& ((TestingClass)o).getNumero() == this.numero) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -1,9 +1,9 @@
 package emn.fil.collection.immutable.impl;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
@@ -21,7 +21,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 
 	/** The Function used to create this collection */
 	private FunctionApply<T> functionApply;
-	private FunctionSelec<T> functionSelec;
+	private Predicate<T> functionSelec;
 
 	/**
 	 * Constructor for AbstractImmutableCollection
@@ -56,10 +56,18 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param functionSelec
 	 *            function used to create this collection
 	 */
-	public AbstractImmutableCollection(List<T> content, FunctionSelec<T> functionSelec) {
+	public AbstractImmutableCollection(List<T> content, Predicate<T> functionSelec) {
 		super();
 		this.content = content;
 		this.functionSelec = functionSelec;
+	}
+	
+	public boolean isEmpty() {
+		return this.content.isEmpty();
+	}
+	
+	public int size() {
+		return this.content.size();
 	}
 
 	/**
@@ -70,7 +78,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 		switch (event.getEventCollection()) {
 		case ADD:
 
-			if (functionSelec != null && !functionSelec.proceed(event.getElement()))
+			if (functionSelec != null && !functionSelec.test(event.getElement()))
 			{
 				// Add element only if it's matching predicate
 				break;

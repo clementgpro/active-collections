@@ -1,9 +1,9 @@
 package emn.fil.collection.mutable.impl;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import emn.fil.collection.functions.FunctionApply;
-import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
@@ -35,7 +35,7 @@ public class OrderedSet<T> extends Set<T> {
 	}
 	
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, FunctionSelec<T> func) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList, func);
 		link(c);
 		return c;
