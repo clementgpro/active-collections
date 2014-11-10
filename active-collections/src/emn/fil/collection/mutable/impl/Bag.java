@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
+import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -45,6 +46,13 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
+		link(c);
+		return c;
+	}
+	
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList);
 		link(c);
 		return c;
 	}
