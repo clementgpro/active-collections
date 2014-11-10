@@ -41,7 +41,7 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, FunctionSelec<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSet<T>(newList, func);
-		link(c, null);
+		link(c);
 		return c;
 	}
 

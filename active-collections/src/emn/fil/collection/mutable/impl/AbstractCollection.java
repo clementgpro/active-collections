@@ -109,7 +109,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	}
 
 	/**
-	 * Function linking this collection and B with C (if B isn't null)
+	 * Function linking this collection and B with C
 	 * 
 	 * @param contentC
 	 * @param b
@@ -118,9 +118,19 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	protected void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
 		// link
 		this.addObserver(c);
-		if (b != null) {
-			b.addObserver(c);
-		}
+		b.addObserver(c);
+	}
+
+	/**
+	 * Function linking this collection with B
+	 * 
+	 * @param contentC
+	 * @param b
+	 * @return
+	 */
+	protected void link(AbstractImmutableCollection<T> b) {
+		// link
+		this.addObserver(b);
 	}
 	
 	public List<T> getContent() {

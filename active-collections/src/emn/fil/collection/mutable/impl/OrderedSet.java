@@ -37,14 +37,14 @@ public class OrderedSet<T> extends Set<T> {
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, FunctionSelec<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList, func);
-		link(c, null);
+		link(c);
 		return c;
 	}
 	
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
-		link(c, null);
+		link(c);
 		return c;
 	}
 }
