@@ -1,5 +1,6 @@
 package emn.fil.collection.mutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -15,7 +16,7 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 		super(content);
 	}
 
-	protected boolean add(List<T> newC, T element) {
+	protected boolean add(final List<T> newC, final T element) {
 		boolean added = false;
 		if (!newC.contains(element))
 		{
@@ -25,7 +26,7 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+	protected AbstractImmutableCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
 		AbstractImmutableCollection<T> c;
 		if (b instanceof Bag)
 		{
@@ -40,17 +41,16 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
-		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
-		link(c);
-		return c;
-	}
-
-	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSet<T>(newList, func);
 		link(c);
 		return c;
 	}
 
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
+		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
+		link(c);
+		return c;
+	}
 }

@@ -1,5 +1,6 @@
 package emn.fil.collection.immutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -22,6 +23,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	/** The Function used to create this collection */
 	private Function<T, T> functionApply;
 	private Predicate<T> functionSelec;
+	protected Comparator<T> functionSort;
 
 	/**
 	 * Constructor for AbstractImmutableCollection
@@ -29,7 +31,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param content
 	 *            the content of the collection
 	 */
-	public AbstractImmutableCollection(List<T> content) {
+	public AbstractImmutableCollection(final List<T> content) {
 		super();
 		this.content = content;
 	}
@@ -42,7 +44,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param functionApply
 	 *            function used to create this collection
 	 */
-	public AbstractImmutableCollection(List<T> content, Function<T, T> functionApply) {
+	public AbstractImmutableCollection(final List<T> content, final Function<T, T> functionApply) {
 		super();
 		this.content = content;
 		this.functionApply = functionApply;
@@ -56,16 +58,30 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param functionSelec
 	 *            function used to create this collection
 	 */
-	public AbstractImmutableCollection(List<T> content, Predicate<T> functionSelec) {
+	public AbstractImmutableCollection(final List<T> content, final Predicate<T> functionSelec) {
 		super();
 		this.content = content;
 		this.functionSelec = functionSelec;
 	}
-	
+
+	/**
+	 * Constructor for AbstractImmutableCollection
+	 * 
+	 * @param content
+	 *            the content of the collection
+	 * @param functionSort
+	 *            function used to create this collection
+	 */
+	public AbstractImmutableCollection(final List<T> content, final Comparator<T> functionSort) {
+		super();
+		this.content = content;
+		this.functionSort = functionSort;
+	}
+
 	public boolean isEmpty() {
 		return this.content.isEmpty();
 	}
-	
+
 	public int size() {
 		return this.content.size();
 	}
@@ -88,8 +104,15 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 				// Modify element to match the function before adding
 				event.setElement(functionApply.apply(event.getElement()));
 			}
-
-			this.add(event);
+			else if (functionSort != null)
+			{
+				// Add the element at the right index
+				this.addSort(event);
+			}
+			else
+			{
+				this.add(event);
+			}
 			break;
 		case REMOVE:
 			this.remove(event);
@@ -106,6 +129,15 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 *            the element to add
 	 */
 	protected abstract void add(EventCollectionMessage<T> event);
+
+	/**
+	 * Add the element to the current index in the list following the type of
+	 * the collection itself.
+	 * 
+	 * @param element
+	 *            the element to add
+	 */
+	protected abstract void addSort(EventCollectionMessage<T> event);
 
 	/**
 	 * Remove the element in the list following the type of the collection

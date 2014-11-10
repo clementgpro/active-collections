@@ -1,5 +1,7 @@
 package emn.fil.collection.immutable.impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -12,7 +14,7 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	public ImmutableSequence(List<T> content) {
 		super(content);
 	}
-	
+
 	public ImmutableSequence(List<T> content, Function<T, T> func) {
 		super(content, func);
 	}
@@ -20,28 +22,47 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	public ImmutableSequence(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void add(EventCollectionMessage<T> event) {
-		if (event.getIndex() != 0) {
-			getContent().add(event.getIndex(), event.getElement());
-		} else {
-			getContent().add(event.getElement());
-		}
-		
+	
+	public ImmutableSequence(List<T> content, Comparator<T> functionSort) {
+		super(content, functionSort);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void remove(EventCollectionMessage<T> event) {		
-		if (event.getElement() != null) {
+	protected void add(EventCollectionMessage<T> event) {
+		if (event.getIndex() != 0)
+		{
+			getContent().add(event.getIndex(), event.getElement());
+		}
+		else
+		{
+			getContent().add(event.getElement());
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void addSort(EventCollectionMessage<T> event) {
+		final int pos = Collections.binarySearch(getContent(), event.getElement(), this.functionSort);
+		if (pos < 0)
+			this.getContent().add(-pos-1, event.getElement());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void remove(EventCollectionMessage<T> event) {
+		if (event.getElement() != null)
+		{
 			getContent().remove(event.getElement());
-		} else {
+		}
+		else
+		{
 			getContent().remove(event.getIndex());
 		}
 	}

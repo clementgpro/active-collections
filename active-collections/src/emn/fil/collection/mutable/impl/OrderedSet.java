@@ -1,5 +1,6 @@
 package emn.fil.collection.mutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -49,15 +50,15 @@ public class OrderedSet<T> extends Set<T> {
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
-		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
 		link(c);
 		return c;
 	}
-
+	
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
-		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
 		link(c);
 		return c;
 	}

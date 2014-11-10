@@ -13,13 +13,14 @@ public class AppSort {
 
 		AbstractCollection<Integer> a = new Bag<Integer>(new ArrayList<Integer>() {
 			{
-				add(3);
+				add(10);
 				add(2);
 				add(1);
 			}
 		});
 
 		AbstractImmutableCollection<Integer> b = a.sort((x, y) -> x - y);
+		a.add(9);
 		System.out.println(b);
 
 		// tests sur les personnes
@@ -32,6 +33,7 @@ public class AppSort {
 		});
 
 		AbstractImmutableCollection<Personne> b2 = a2.sort((Personne p1, Personne p2) -> p1.getAge() - p2.getAge());
+		a2.add(new Personne(24, "José", 9393));
 		System.out.println(b2);
 
 	}

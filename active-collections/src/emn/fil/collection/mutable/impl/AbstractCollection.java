@@ -145,40 +145,19 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	public List<T> getContent() {
 		return content;
 	}
-	
-//	public AbstractImmutableCollection<T> apply(FunctionApply<T> func) {
-//		List<T> newList = new ArrayList<T>();
-//		for (T element : this.content) {
-//			newList.add(func.proceed(element));
-//		}
-//		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
-//		return b;
-//	}
-	
+		
 	public AbstractImmutableCollection<T> apply(Function<T, T> func) {
-		List<T> newList = this.content.stream()
+		final List<T> newList = this.content.stream()
 				.map(func)
 				.collect(Collectors.toList());
 		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
 		
 		return b;
 	}
-	
-//	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func) {
-//		List<T> newList = new ArrayList<T>();
-//		for (T element : this.content) {
-//			if (func.proceed(element)) {
-//				newList.add(element);
-//			}	
-//		}
-//		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
-//			
-//		return b;
-//	}
-	
+		
 	public AbstractImmutableCollection<T> selection(Predicate<T> func) {
 		
-		List<T> newList = this.content.stream()
+		final List<T> newList = this.content.stream()
 				.filter(func)
 				.collect(Collectors.toList());
 		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
@@ -230,7 +209,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 							}
 						})
 				.collect(Collectors.toList()); 
-		return this.createCollectionTypeWhenSort(newList);
+		return this.createCollectionTypeWhenSort(newList, functionSort);
 	}
 
 	/**
@@ -245,5 +224,5 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 
 	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
 	
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList);
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort);
 }

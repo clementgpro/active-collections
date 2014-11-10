@@ -1,5 +1,6 @@
 package emn.fil.collection.mutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,11 +17,11 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	public Bag(List<T> content) {
 		super(content);
 	}
-	
-	public Bag(){
+
+	public Bag() {
 		super();
 	}
-	
+
 	protected boolean add(List<T> newList, T element) {
 		return newList.add(element);
 	}
@@ -42,24 +43,24 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 		link(c, b);
 		return c;
 	}
-	
+
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
 		link(c);
 		return c;
 	}
-	
-	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
-		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList);
-		link(c);
-		return c;
-	}
-	
+
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
+		link(c);
+		return c;
+	}
+
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, functionSort);
 		link(c);
 		return c;
 	}

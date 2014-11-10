@@ -1,5 +1,6 @@
 package emn.fil.collection.mutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -18,43 +19,48 @@ public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 	public Sequence(List<T> content) {
 		super(content);
 	}
-	
-	public void add(int index, T element) {
-		this.content.add(index, element);	
+
+	public void add(final int index, final T element) {
+		this.content.add(index, element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 	}
-	
+
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+	protected AbstractImmutableCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
 		AbstractImmutableCollection<T> c;
-		if (b instanceof Bag) {
-			 c = new ImmutableBag<T>(newList);
-		} else if (b instanceof Set) {
-			 c = new ImmutableSet<T>(newList);
-		} else  {
-			 c = new ImmutableSequence<T>(newList);
+		if (b instanceof Bag)
+		{
+			c = new ImmutableBag<T>(newList);
+		}
+		else if (b instanceof Set)
+		{
+			c = new ImmutableSet<T>(newList);
+		}
+		else
+		{
+			c = new ImmutableSequence<T>(newList);
 		}
 		link(c, b);
 		return c;
 	}
-	
+
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
 		link(c);
 		return c;
 	}
-	
+
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(final List<T> newList, final Function<T, T> func) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
+		link(c);
+		return c;
+	}
+
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList);
-		link(c);
-		return c;
-	}
-	
-	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
-		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
 		link(c);
 		return c;
 	}

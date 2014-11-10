@@ -1,5 +1,6 @@
 package emn.fil.collection.immutable.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -19,6 +20,10 @@ public class ImmutableSet<T> extends ImmutableBag<T> implements IImmutableUnique
 
 	public ImmutableSet(List<T> content, Predicate<T> func) {
 		super(content, func);
+	}
+	
+	public ImmutableSet(List<T> content, Comparator<T> functionSort) {
+		super(content, functionSort);
 	}
 
 	/**
