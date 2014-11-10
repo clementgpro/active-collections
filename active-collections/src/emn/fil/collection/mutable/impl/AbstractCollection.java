@@ -27,7 +27,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		this.getContent().remove(element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -85,20 +85,20 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	public AbstractImmutableCollection<T> difference(AbstractCollection<T> b) {
 
 		// on cree C
-		final List<T> newList = new ArrayList<T>();
-		final List<T> aList = this.getContent();
-
-		final int aListSize = aList.size();
+		final List<T> newList = new ArrayList<T>(this.getContent());
+		final List<T> bList = b.getContent();
+		
+		final int bListSize = bList.size();
 		int i = 0;
 		do
 		{
-			T aListElement = aList.get(i);
-			if (!b.getContent().contains(aListElement))
+			T bListElement = bList.get(i);
+			if (this.content.contains(bListElement))
 			{
-				add(newList, aListElement);
+				newList.remove(bListElement);
 			}
 			i++;
-		} while (i < aListSize);
+		} while (i < bListSize);
 
 		// link
 		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
@@ -118,7 +118,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		this.addObserver(c);
 		b.addObserver(c);
 	}
-	
+
 	public List<T> getContent() {
 		return content;
 	}
@@ -127,6 +127,6 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	 * {@inheritDoc}
 	 */
 	protected abstract boolean add(List<T> newList, T element);
-	
+
 	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
 }

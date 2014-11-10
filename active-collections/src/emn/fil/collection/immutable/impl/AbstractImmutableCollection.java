@@ -55,7 +55,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 
 	/**
 	 * Remove the element in the list following the type of the collection
-	 * itselft.
+	 * itself.
 	 * 
 	 * @param element
 	 *            the element to add
