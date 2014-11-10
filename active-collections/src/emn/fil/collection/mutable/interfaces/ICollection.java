@@ -2,6 +2,8 @@ package emn.fil.collection.mutable.interfaces;
 
 import java.util.List;
 
+import emn.fil.collection.functions.FunctionApply;
+import emn.fil.collection.functions.FunctionSelec;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 
@@ -51,4 +53,18 @@ public interface ICollection<T> {
 
 	/** Get the content of the collection. */
 	public List<T> getContent();
+	
+	/**
+	 * Apply the function on all the collection
+	 * @param func to apply on elements
+	 * @return new collection with member applied by the func
+	 */
+	public AbstractImmutableCollection<T> apply(FunctionApply<T> func);
+	
+	/**
+	 * Selection element of the collection that match the function
+	 * @param func
+	 * @return
+	 */
+	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func);
 }
