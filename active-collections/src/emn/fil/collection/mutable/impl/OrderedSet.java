@@ -17,30 +17,44 @@ public class OrderedSet<T> extends Set<T> {
 	public OrderedSet(List<T> content) {
 		super(content);
 	}
-	
+
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
 		AbstractImmutableCollection<T> c;
-		if (b instanceof Bag) {
-			 c = new ImmutableBag<T>(newList);
-		} else if (b instanceof Set) {
-			 c = new ImmutableSet<T>(newList);
-		} else if (b instanceof Sequence) {
-			 c = new ImmutableSequence<T>(newList);
-		} else {
-			 c = new ImmutableOrderedSet<T>(newList);
+		if (b instanceof Bag)
+		{
+			c = new ImmutableBag<T>(newList);
+		}
+		else if (b instanceof Set)
+		{
+			c = new ImmutableSet<T>(newList);
+		}
+		else if (b instanceof Sequence)
+		{
+			c = new ImmutableSequence<T>(newList);
+		}
+		else
+		{
+			c = new ImmutableOrderedSet<T>(newList);
 		}
 		link(c, b);
 		return c;
 	}
-	
+
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList, func);
 		link(c);
 		return c;
 	}
-	
+
+	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableOrderedSet<T>(newList);
+		link(c);
+		return c;
+	}
+
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);

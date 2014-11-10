@@ -46,6 +46,13 @@ public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 	}
 	
 	@Override
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList) {
+		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList);
+		link(c);
+		return c;
+	}
+	
+	@Override
 	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
 		link(c);

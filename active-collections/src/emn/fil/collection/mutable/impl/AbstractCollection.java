@@ -1,11 +1,13 @@
 package emn.fil.collection.mutable.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import emn.fil.collection.functions.FunctionSort;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
@@ -211,6 +213,18 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		
 		return null;
 	}
+	
+	public AbstractImmutableCollection<T> sort(final FunctionSort<T> functionSort) {
+		final List<T> newList = this.content.stream()
+				.sorted(
+						new Comparator<T>() {
+							public int compare(T element1, T element2){
+								return functionSort.compare(element1, element2);
+							}
+						})
+				.collect(Collectors.toList()); 
+		return this.createCollectionTypeWhenSort(newList);
+	}
 
 	/**
 	 * Function used inside the collection classes
@@ -221,6 +235,8 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
 	
 	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
-	
+
 	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
+	
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList);
 }
