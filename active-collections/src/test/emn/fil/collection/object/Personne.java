@@ -1,11 +1,11 @@
 package test.emn.fil.collection.object;
 
-public class TestingClass {
+public class Personne {
 	private int age;
 	private String name;
 	private int numero;
 	
-	public TestingClass(int age, String name, int numero) {
+	public Personne(int age, String name, int numero) {
 		super();
 		this.age = age;
 		this.name = name;
@@ -41,10 +41,10 @@ public class TestingClass {
 	}
 	
 	public boolean equals(Object o) {
-		if (o instanceof TestingClass //
-				&& ((TestingClass)o).getAge() == this.age //
-				&& ((TestingClass)o).getName().equals(this.name) //
-				&& ((TestingClass)o).getNumero() == this.numero) {
+		if (o instanceof Personne //
+				&& ((Personne)o).getAge() == this.age //
+				&& ((Personne)o).getName().equals(this.name) //
+				&& ((Personne)o).getNumero() == this.numero) {
 			return true;
 		} else {
 			return false;

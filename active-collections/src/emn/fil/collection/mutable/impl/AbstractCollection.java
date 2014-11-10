@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import emn.fil.collection.functions.FunctionSort;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
@@ -222,7 +221,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		return this.selection(func);
 	}
 	
-	public AbstractImmutableCollection<T> sort(final FunctionSort<T> functionSort) {
+	public AbstractImmutableCollection<T> sort(final Comparator<T> functionSort) {
 		final List<T> newList = this.content.stream()
 				.sorted(
 						new Comparator<T>() {
