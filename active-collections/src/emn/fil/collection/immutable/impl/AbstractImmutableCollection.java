@@ -1,9 +1,9 @@
 package emn.fil.collection.immutable.impl;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
@@ -20,7 +20,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	private List<T> content;
 
 	/** The Function used to create this collection */
-	private FunctionApply<T> functionApply;
+	private Function<T, T> functionApply;
 	private Predicate<T> functionSelec;
 
 	/**
@@ -42,7 +42,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * @param functionApply
 	 *            function used to create this collection
 	 */
-	public AbstractImmutableCollection(List<T> content, FunctionApply<T> functionApply) {
+	public AbstractImmutableCollection(List<T> content, Function<T, T> functionApply) {
 		super();
 		this.content = content;
 		this.functionApply = functionApply;
@@ -86,7 +86,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 			else if (functionApply != null)
 			{
 				// Modify element to match the function before adding
-				event.setElement(functionApply.proceed(event.getElement()));
+				event.setElement(functionApply.apply(event.getElement()));
 			}
 
 			this.add(event);

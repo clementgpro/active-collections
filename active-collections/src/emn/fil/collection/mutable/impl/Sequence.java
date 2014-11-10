@@ -1,9 +1,9 @@
 package emn.fil.collection.mutable.impl;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
@@ -46,7 +46,7 @@ public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 	}
 	
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, func);
 		link(c);
 		return c;

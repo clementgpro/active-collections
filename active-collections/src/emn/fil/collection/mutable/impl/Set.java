@@ -5,11 +5,8 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
-import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.immutable.impl.ImmutableSet;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
-import emn.fil.collection.obs.event.EventCollectionMessage;
-import emn.fil.collection.obs.event.TypeEventEnum;
 
 public class Set<T> extends Bag<T> implements IUniqueness<T> {
 

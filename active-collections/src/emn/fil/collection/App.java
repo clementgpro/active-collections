@@ -1,10 +1,10 @@
 package emn.fil.collection;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import test.emn.fil.collection.object.TestingClass;
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
@@ -59,7 +59,7 @@ public class App {
 		});
 		
 		// Test Apply
-		FunctionApply<TestingClass> func = (TestingClass element) -> { return new TestingClass(5, element.getName(), element.getNumero()); };
+		Function<TestingClass, TestingClass> func = (TestingClass element) -> { return new TestingClass(5, element.getName(), element.getNumero()); };
 		AbstractImmutableCollection<TestingClass> e = test.apply(func);
 		System.out.println(test);
 		System.out.println(e);

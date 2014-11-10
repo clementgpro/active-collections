@@ -1,9 +1,9 @@
 package emn.fil.collection.mutable.interfaces;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 
@@ -59,7 +59,7 @@ public interface ICollection<T> {
 	 * @param func to apply on elements
 	 * @return new collection with member applied by the func
 	 */
-	public AbstractImmutableCollection<T> apply(FunctionApply<T> func);
+	public AbstractImmutableCollection<T> apply(Function<T, T> func);
 	
 	/**
 	 * Selection element of the collection that match the function

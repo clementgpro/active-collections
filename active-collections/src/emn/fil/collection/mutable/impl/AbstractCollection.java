@@ -2,11 +2,10 @@ package emn.fil.collection.mutable.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
@@ -146,12 +145,21 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		return content;
 	}
 	
-	public AbstractImmutableCollection<T> apply(FunctionApply<T> func) {
-		List<T> newList = new ArrayList<T>();
-		for (T element : this.content) {
-			newList.add(func.proceed(element));
-		}
+//	public AbstractImmutableCollection<T> apply(FunctionApply<T> func) {
+//		List<T> newList = new ArrayList<T>();
+//		for (T element : this.content) {
+//			newList.add(func.proceed(element));
+//		}
+//		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
+//		return b;
+//	}
+	
+	public AbstractImmutableCollection<T> apply(Function<T, T> func) {
+		List<T> newList = this.content.stream()
+				.map(func)
+				.collect(Collectors.toList());
 		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
+		
 		return b;
 	}
 	
@@ -172,7 +180,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		List<T> newList = this.content.stream()
 				.filter(func)
 				.collect(Collectors.toList());
-		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, null);
+		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
 		
 		return b;
 	}
@@ -214,5 +222,5 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	
 	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
 	
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func);
+	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
 }

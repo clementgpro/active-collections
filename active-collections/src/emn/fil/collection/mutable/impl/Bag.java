@@ -1,9 +1,9 @@
 package emn.fil.collection.mutable.impl;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.functions.FunctionApply;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.mutable.interfaces.ICollection;
@@ -50,7 +50,7 @@ public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
 	}
 	
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, FunctionApply<T> func) {
+	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
 		link(c);
 		return c;
