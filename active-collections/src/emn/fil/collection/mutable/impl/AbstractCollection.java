@@ -209,9 +209,17 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	}
 	
 	public AbstractImmutableCollection<T> reject(AbstractCollection<T> b) {
+		List<T> tmpList = new ArrayList<T>(b.getContent());
+		Predicate<T> func = (T e) -> {
+			if (tmpList.contains(e)) {
+				tmpList.remove(e);
+				return false;
+			} else {
+				return true;
+			}
+		};
 		
-		
-		return null;
+		return this.selection(func);
 	}
 	
 	public AbstractImmutableCollection<T> sort(final FunctionSort<T> functionSort) {

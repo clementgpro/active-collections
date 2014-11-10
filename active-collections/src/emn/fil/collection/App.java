@@ -89,10 +89,15 @@ public class App {
 				add(new TestingClass(22, "Benjamin", 666));
 				add(new TestingClass(22, "Benjamin", 666));
 				add(new TestingClass(53, "Mamadou", 69));
+				add(new TestingClass(53, "Mamadou", 69));
 			}
 		});
 		AbstractImmutableCollection<TestingClass> e3 = testUnique.toUnique();
+		System.out.println(testUnique);
 		System.out.println(e3);
+		
+		AbstractImmutableCollection<TestingClass> e4 = testUnique.reject(test);
+		System.out.println("BIS \n" + e4);
 
 	}
 }
