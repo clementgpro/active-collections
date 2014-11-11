@@ -13,11 +13,11 @@ public abstract class Subject<T> {
 		this.observers = new ArrayList<Observer<T>>();
 	}
 
-	public void addObserver(Observer<T> c) {
+	protected void addObserver(Observer<T> c) {
 		this.observers.add(c);
 	}
 
-	public void notify(EventCollectionMessage<T> event) {
+	protected void notify(EventCollectionMessage<T> event) {
 		for (Observer<T> o : observers) {
 			o.update(event);
 		}
