@@ -200,8 +200,14 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		return this.selection(func);
 	}
 	
+	public AbstractImmutableCollection<T> sort() {
+		return this.createCollectionTypeWhenSort(this.content.stream().sorted().collect(Collectors.toList()), null);
+	}
+	
 	public AbstractImmutableCollection<T> sort(final Comparator<T> functionSort) {
-		final List<T> newList = this.content.stream()
+		final List<T> newList = 
+				this.content
+				.stream()
 				.sorted(
 						new Comparator<T>() {
 							public int compare(T element1, T element2){
