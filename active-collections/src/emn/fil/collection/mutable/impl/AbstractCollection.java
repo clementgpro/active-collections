@@ -154,6 +154,18 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 		
 		return b;
 	}
+	
+//	public AbstractImmutableCollection<T> selection(FunctionSelec<T> func) {
+//	List<T> newList = new ArrayList<T>();
+//	for (T element : this.content) {
+//		if (func.proceed(element)) {
+//			newList.add(element);
+//		}	
+//	}
+//	AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
+//		
+//	return b;
+//}
 		
 	public AbstractImmutableCollection<T> selection(Predicate<T> func) {
 		
