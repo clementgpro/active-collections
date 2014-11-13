@@ -12,7 +12,7 @@ import emn.fil.collection.mutable.impl.Bag;
 public class App {
 
 	public static void main(String[] args) {
-
+		// branch
 		AbstractCollection<Integer> a = new Bag<Integer>(new ArrayList<Integer>() {
 			{
 				add(1);
@@ -66,7 +66,6 @@ public class App {
 		
 		// Test Selec
 		Predicate<Personne> func2 = (Personne element) -> { return element.getAge() > 18;};
-		Predicate<Personne> func3 = (Personne element) -> { return element.getAge() > 18;};
 		AbstractImmutableCollection<Personne> e2 = test.selection(func2);
 		System.out.println("ALLOOOOOOOOOOOOOOOOO \n" + test);
 		System.out.println(e2);
