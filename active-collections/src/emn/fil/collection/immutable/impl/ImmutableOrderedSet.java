@@ -35,12 +35,4 @@ public class ImmutableOrderedSet<T> extends ImmutableSet<T> {
 	protected void add(EventCollectionMessage<T> event) {
 		super.add(event);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void remove(EventCollectionMessage<T> event) {
-		super.remove(event);
-	}
 }

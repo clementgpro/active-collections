@@ -27,7 +27,7 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	}
 
 	public void remove(T element) {
-		this.getContent().remove(element);
+		this.getContent().remove(element);	
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
 	}
 	
@@ -166,8 +166,11 @@ public abstract class AbstractCollection<T> extends Subject<T> implements IColle
 	}
 	
 	public boolean exists(AbstractCollection<T> b) {
+		List<T> tmpList = new ArrayList<T>(b.getContent());
 		Predicate<T> func = (T e) -> {
-			return b.getContent().contains(e);
+			boolean res = tmpList.contains(e);
+			tmpList.remove(e);
+			return res;
 		};
 		return this.selection(func).size() == b.size();
 	}

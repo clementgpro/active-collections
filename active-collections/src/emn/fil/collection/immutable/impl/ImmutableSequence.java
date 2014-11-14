@@ -57,9 +57,10 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	 */
 	@Override
 	protected void remove(EventCollectionMessage<T> event) {
+		// check if the element is set or if the index is set (should be the index here)
 		if (event.getElement() != null)
 		{
-			getContent().remove(event.getElement());
+			super.remove(event);
 		}
 		else
 		{
