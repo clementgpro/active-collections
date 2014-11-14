@@ -18,6 +18,10 @@ public class OrderedSet<T> extends Set<T> {
 	public OrderedSet(List<T> content) {
 		super(content);
 	}
+	
+	public OrderedSet() {
+		super();
+	}
 
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {

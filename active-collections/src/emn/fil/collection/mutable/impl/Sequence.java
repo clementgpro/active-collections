@@ -19,6 +19,10 @@ public class Sequence<T> extends Bag<T> implements IOrdered<T> {
 	public Sequence(List<T> content) {
 		super(content);
 	}
+	
+	public Sequence() {
+		super();
+	}
 
 	public void add(final int index, final T element) {
 		this.content.add(index, element);

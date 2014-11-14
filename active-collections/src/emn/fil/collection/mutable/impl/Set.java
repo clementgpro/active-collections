@@ -15,6 +15,10 @@ public class Set<T> extends Bag<T> implements IUniqueness<T> {
 	public Set(List<T> content) {
 		super(content);
 	}
+	
+	public Set() {
+		super();
+	}
 
 	protected boolean add(final List<T> newC, final T element) {
 		boolean added = false;
