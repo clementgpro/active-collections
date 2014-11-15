@@ -3,7 +3,7 @@ package emn.fil.collection.obs.type;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.subject.SubjectAttribute;
 
-public abstract class OAbstract extends SubjectAttribute<OAbstract> {
+public abstract class OAbstract extends SubjectAttribute<OAbstract> implements Comparable<OAbstract> {
 	/** State of the object before a change of any attributes. */
 	private OAbstract before;
 

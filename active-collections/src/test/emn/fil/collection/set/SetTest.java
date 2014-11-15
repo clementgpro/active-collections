@@ -1,7 +1,5 @@
 package test.emn.fil.collection.set;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 
 import org.junit.Assert;
@@ -17,7 +15,15 @@ public class SetTest {
 
 	@Test
 	public void testSortWithoutFunction() {
-		fail("to do");
+		final AbstractCollection<OInteger> a = new Bag<OInteger>(new ArrayList<OInteger>() {
+			{
+				add(new OInteger(10));
+				add(new OInteger(2));
+				add(new OInteger(1));
+			}
+		});
+		final AbstractImmutableCollection<OInteger> b = a.sort();
+		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(10) }, b.getContent().toArray());
 	}
 
 	@Test

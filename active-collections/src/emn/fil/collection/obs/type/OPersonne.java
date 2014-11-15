@@ -68,4 +68,9 @@ public class OPersonne extends OAbstract {
 		return age + " " + name + " " + numero;
 	}
 
+	@Override
+	public int compareTo(OAbstract arg0) {
+		return this.getAge() - ((OPersonne) arg0).getAge();
+	}
+
 }

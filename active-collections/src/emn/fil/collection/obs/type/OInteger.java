@@ -38,4 +38,9 @@ public class OInteger extends OAbstract {
 			return false;
 		}
 	}
+
+	@Override
+	public int compareTo(OAbstract arg0) {
+		return this.value - ((OInteger)arg0).getValue();
+	}
 }
