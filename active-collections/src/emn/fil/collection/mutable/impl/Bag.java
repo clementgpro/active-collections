@@ -11,8 +11,9 @@ import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class Bag<T> extends AbstractCollection<T> implements ICollection<T> {
+public class Bag<T extends OAbstract> extends AbstractCollection<T> implements ICollection<T> {
 
 	public Bag(List<T> content) {
 		super(content);

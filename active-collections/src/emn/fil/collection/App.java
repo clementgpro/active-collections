@@ -4,98 +4,103 @@ import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import test.emn.fil.collection.object.Personne;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
+import emn.fil.collection.obs.type.OInteger;
+import emn.fil.collection.obs.type.OPersonne;
 
 public class App {
 
+	@SuppressWarnings("serial")
 	public static void main(String[] args) {
 		// branch
-		AbstractCollection<Integer> a = new Bag<Integer>(new ArrayList<Integer>() {
+		AbstractCollection<OInteger> a = new Bag<OInteger>(new ArrayList<OInteger>() {
 			{
-				add(1);
-				add(2);
-				add(3);
+				add(new OInteger(1));
+				add(new OInteger(2));
+				add(new OInteger(3));
 			}
 		});
-		AbstractCollection<Integer> b = new Bag<Integer>(new ArrayList<Integer>() {
+		AbstractCollection<OInteger> b = new Bag<OInteger>(new ArrayList<OInteger>() {
 			{
-				add(4);
-				add(5);
-				add(6);
+				add(new OInteger(4));
+				add(new OInteger(5));
+				add(new OInteger(6));
 			}
 		});
-		AbstractCollection<Integer> d = new Bag<Integer>(new ArrayList<Integer>() {
+		AbstractCollection<OInteger> d = new Bag<OInteger>(new ArrayList<OInteger>() {
 			{
-				add(5);
-				add(6);
-				add(7);
+				add(new OInteger(5));
+				add(new OInteger(6));
+				add(new OInteger(7));
 			}
 		});
-		AbstractImmutableCollection<Integer> c = a.union(b);
+		AbstractImmutableCollection<OInteger> c = a.union(b);
 		System.out.println(c);
-		// a.add(1);
-//		a.remove(1);
-		// a.getC();
+		a.add(new OInteger(1));
+		a.remove(new OInteger(1));
 		System.out.println(c);
 
-		// C<Integer> e = b.intersection(d);
-		// System.out.println(e);
-		//
-		// C<Integer> f = a.difference(b);
-		// System.out.println("A\\B=" + f);
-		//
-		// C<Integer> g = b.difference(d);
-		// System.out.println("B\\D=" + g);
-		
-		AbstractCollection<Personne> test = new Bag<Personne>(new ArrayList<Personne>() {
+		AbstractImmutableCollection<OInteger> e = b.intersection(d);
+		System.out.println(e);
+
+		AbstractImmutableCollection<OInteger> f = a.difference(b);
+		System.out.println("A\\B=" + f);
+
+		AbstractImmutableCollection<OInteger> g = b.difference(d);
+		System.out.println("B\\D=" + g);
+
+		AbstractCollection<OPersonne> test = new Bag<OPersonne>(new ArrayList<OPersonne>() {
 			{
-				add(new Personne(18, "Clement", 12345));
-				add(new Personne(22, "Benjamin", 666));
-				add(new Personne(53, "Mamadou", 69));
+				add(new OPersonne(18, "Clement", 12345));
+				add(new OPersonne(22, "Benjamin", 666));
+				add(new OPersonne(53, "Mamadou", 69));
 			}
 		});
-		
+
 		// Test Apply
-		Function<Personne, Personne> func = (Personne element) -> { return new Personne(5, element.getName(), element.getNumero()); };
-		AbstractImmutableCollection<Personne> e = test.apply(func);
+		Function<OPersonne, OPersonne> func = (OPersonne element) -> {
+			return new OPersonne(5, element.getName(), element.getNumero());
+		};
+		AbstractImmutableCollection<OPersonne> e1 = test.apply(func);
 		System.out.println(test);
-		System.out.println(e);
-		
+		System.out.println(e1);
+
 		// Test Selec
-		Predicate<Personne> func2 = (Personne element) -> { return element.getAge() > 18;};
-		AbstractImmutableCollection<Personne> e2 = test.selection(func2);
+		Predicate<OPersonne> func2 = (OPersonne element) -> {
+			return element.getAge() > 18;
+		};
+		AbstractImmutableCollection<OPersonne> e2 = test.selection(func2);
 		System.out.println("ALLOOOOOOOOOOOOOOOOO \n" + test);
 		System.out.println(e2);
-		
+
 		// Test exists
-		AbstractCollection<Personne> testExist = new Bag<Personne>(new ArrayList<Personne>() {
+		AbstractCollection<OPersonne> testExist = new Bag<OPersonne>(new ArrayList<OPersonne>() {
 			{
-				add(new Personne(18, "Clement", 12345));
-				add(new Personne(53, "Mamadou", 69));
+				add(new OPersonne(18, "Clement", 12345));
+				add(new OPersonne(53, "Mamadou", 69));
 			}
 		});
 		System.out.println(test.exists(testExist));
-		
+
 		// test toUnique
-		AbstractCollection<Personne> testUnique = new Bag<Personne>(new ArrayList<Personne>() {
+		AbstractCollection<OPersonne> testUnique = new Bag<OPersonne>(new ArrayList<OPersonne>() {
 			{
-				add(new Personne(18, "Clement", 12345));
-				add(new Personne(22, "Benjamin", 666));
-				add(new Personne(22, "Benjamin", 666));
-				add(new Personne(22, "Benjamin", 666));
-				add(new Personne(22, "Benjamin", 666));
-				add(new Personne(53, "Mamadou", 69));
-				add(new Personne(53, "Mamadou", 69));
+				add(new OPersonne(18, "Clement", 12345));
+				add(new OPersonne(22, "Benjamin", 666));
+				add(new OPersonne(22, "Benjamin", 666));
+				add(new OPersonne(22, "Benjamin", 666));
+				add(new OPersonne(22, "Benjamin", 666));
+				add(new OPersonne(53, "Mamadou", 69));
+				add(new OPersonne(53, "Mamadou", 69));
 			}
 		});
-		AbstractImmutableCollection<Personne> e3 = testUnique.toUnique();
+		AbstractImmutableCollection<OPersonne> e3 = testUnique.toUnique();
 		System.out.println(testUnique);
 		System.out.println(e3);
-		
-		AbstractImmutableCollection<Personne> e4 = testUnique.reject(test);
+
+		AbstractImmutableCollection<OPersonne> e4 = testUnique.reject(test);
 		System.out.println("BIS \n" + e4);
 
 	}

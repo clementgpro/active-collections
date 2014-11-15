@@ -7,14 +7,14 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.immutable.impl.ImmutableBag;
-import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
 import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.immutable.impl.ImmutableSet;
 import emn.fil.collection.mutable.interfaces.IOrdered;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class Sequence<T> extends Bag<T> implements IOrdered<T> {
+public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T> {
 
 	public Sequence(List<T> content) {
 		super(content);

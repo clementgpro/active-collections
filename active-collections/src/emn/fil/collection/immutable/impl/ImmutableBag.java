@@ -47,6 +47,13 @@ public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements I
 	 */
 	@Override
 	protected void remove(EventCollectionMessage<T> event) {
-		this.getContent().remove(event.getElement());
+		for (T element : this.getContent())
+		{
+			if (element.equals(event.getElement()))
+			{
+				this.getContent().remove(element);
+				break;
+			}
+		}
 	}
 }

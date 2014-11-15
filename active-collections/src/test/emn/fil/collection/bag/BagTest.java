@@ -9,30 +9,30 @@ import org.junit.Test;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
+import emn.fil.collection.obs.type.OInteger;
 
 public class BagTest {
 
-	private final AbstractCollection<Integer> a;
-	private final AbstractCollection<Integer> b;
-	private final AbstractCollection<Integer> d;
-	
-	// C
-	private AbstractImmutableCollection<Integer> c;
+	private final AbstractCollection<OInteger> a;
+	private final AbstractCollection<OInteger> b;
+	private final AbstractCollection<OInteger> d;
+
+	private AbstractImmutableCollection<OInteger> c;
 
 	public BagTest() {
-		this.a = new Bag<Integer>();
+		this.a = new Bag<OInteger>();
 
-		this.a.add(1);
-		this.a.add(2);
-		this.a.add(2);
-		this.a.add(3);
-		this.b = new Bag<Integer>();
-		this.b.add(2);
-		this.b.add(3);
-		this.b.add(4);
-		this.d = new Bag<Integer>();
-		this.d.add(2);
-		this.d.add(5);
+		this.a.add(new OInteger(1));
+		this.a.add(new OInteger(2));
+		this.a.add(new OInteger(2));
+		this.a.add(new OInteger(3));
+		this.b = new Bag<OInteger>();
+		this.b.add(new OInteger(2));
+		this.b.add(new OInteger(3));
+		this.b.add(new OInteger(4));
+		this.d = new Bag<OInteger>();
+		this.d.add(new OInteger(2));
+		this.d.add(new OInteger(5));
 	}
 
 	@Before
@@ -42,34 +42,35 @@ public class BagTest {
 
 	@Test
 	public void testUnion() {
-		Assert.assertArrayEquals(new Integer[]{1,2,2,3,2,3,4}, this.c.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2),
+				new OInteger(3), new OInteger(4) }, this.c.getContent().toArray());
 	}
-	
+
 	@Test
 	public void testIntersection() {
-		AbstractImmutableCollection<Integer> tmp = this.a.intersection(d);
-		Assert.assertArrayEquals(new Integer[]{2}, tmp.getContent().toArray());
+		AbstractImmutableCollection<OInteger> tmp = this.a.intersection(d);
+		Assert.assertArrayEquals(new OInteger[] { new OInteger(2) }, tmp.getContent().toArray());
 	}
-	
+
 	@Test
 	public void testDifference() {
-		AbstractImmutableCollection<Integer> tmp = this.a.difference(d);
-		Assert.assertArrayEquals(new Integer[]{1,2,3}, tmp.getContent().toArray());
+		AbstractImmutableCollection<OInteger> tmp = this.a.difference(d);
+		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(3) }, tmp.getContent().toArray());
 	}
 
 	@Test
 	public void testCIsUpdatedWhenAnElementIsAddToA() {
-		final Integer element = 1;
+		final OInteger element = new OInteger(1);
 		a.add(element);
-		final List<Integer> cContent = this.c.getContent();
+		final List<OInteger> cContent = this.c.getContent();
 		Assert.assertEquals(element, cContent.get(cContent.size() - 1));
 	}
-	
+
 	@Test
 	public void testCIsUpdatedWhenAnElementIsRemovedFromA() {
-		final Integer element = 1;
+		final OInteger element = new OInteger(1);
 		a.remove(element);
-		final List<Integer> cContent = this.c.getContent();
+		final List<OInteger> cContent = this.c.getContent();
 		Assert.assertEquals(this.a.getContent().get(0), cContent.get(0));
 	}
 

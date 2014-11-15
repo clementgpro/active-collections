@@ -9,8 +9,9 @@ import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
 import emn.fil.collection.immutable.impl.ImmutableSet;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class Set<T> extends Bag<T> implements IUniqueness<T> {
+public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 
 	public Set(List<T> content) {
 		super(content);
