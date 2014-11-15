@@ -10,8 +10,9 @@ import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
 import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.immutable.impl.ImmutableSet;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class OrderedSet<T> extends Set<T> {
+public class OrderedSet<T extends OAbstract> extends Set<T> {
 
 	private Sequence<T> sequence;
 

@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
-import emn.fil.collection.obs.event.TypeEventEnum;
 
 public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements IImmutableCollection<T> {
 
@@ -39,15 +38,14 @@ public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements I
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void addSort(EventCollectionMessage<T> event) {
-		this.add(event);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	protected void remove(EventCollectionMessage<T> event) {
-		this.getContent().remove(event.getElement());	
+		for (T element : this.getContent())
+		{
+			if (element.equals(event.getElement()))
+			{
+				this.getContent().remove(element);
+				break;
+			}
+		}
 	}
 }

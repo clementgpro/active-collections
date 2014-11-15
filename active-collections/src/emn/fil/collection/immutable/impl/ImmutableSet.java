@@ -36,4 +36,12 @@ public class ImmutableSet<T> extends ImmutableBag<T> implements IImmutableUnique
 			this.getContent().add(event.getElement());
 		}
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void remove(EventCollectionMessage<T> event) {
+		this.getContent().remove(event.getElement());
+	}
 }

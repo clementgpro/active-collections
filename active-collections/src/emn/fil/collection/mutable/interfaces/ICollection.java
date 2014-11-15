@@ -6,8 +6,9 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
+import emn.fil.collection.obs.type.OAbstract;
 
-public interface ICollection<T> {
+public interface ICollection<T extends OAbstract> {
 	/**
 	 * Union with the other collection, b.
 	 * 

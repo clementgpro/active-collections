@@ -22,7 +22,7 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	public ImmutableSequence(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
-	
+
 	public ImmutableSequence(List<T> content, Comparator<T> functionSort) {
 		super(content, functionSort);
 	}
@@ -32,12 +32,24 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	 */
 	@Override
 	protected void add(EventCollectionMessage<T> event) {
-		if (event.getIndex() != 0)
+		if (this.functionSort != null)
+		{
+			final int pos = Collections.binarySearch(getContent(), event.getElement(), this.functionSort);
+			if (pos < 0)
+				getContent().add(-pos - 1, event.getElement());
+		}
+		else if (event.getIndex() != 0)
 		{
 			getContent().add(event.getIndex(), event.getElement());
 		}
 		else
 		{
+			// TODO we should have the following code but it's impossible for now
+			// cause getContent() is List<T> and T is not identified as a comparable
+			// despite T extends Oabstract which implements Comparable
+			// final int pos = Collections.binarySearch(getContent(), event.getElement());
+//			if (pos < 0)
+//				this.getContent().add(-pos - 1, event.getElement());
 			getContent().add(event.getElement());
 		}
 	}
@@ -46,21 +58,10 @@ public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableO
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void addSort(EventCollectionMessage<T> event) {
-		final int pos = Collections.binarySearch(getContent(), event.getElement(), this.functionSort);
-		if (pos < 0)
-			this.getContent().add(-pos-1, event.getElement());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	protected void remove(EventCollectionMessage<T> event) {
-		// check if the element is set or if the index is set (should be the index here)
 		if (event.getElement() != null)
 		{
-			super.remove(event);
+			getContent().remove(event.getElement());
 		}
 		else
 		{

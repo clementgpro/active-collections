@@ -6,8 +6,10 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
+import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
+import emn.fil.collection.obs.type.OAbstract;
 
 /**
  * Immutable representation of collection, which is C.
@@ -104,11 +106,6 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 				// Modify element to match the function before adding
 				event.setElement(functionApply.apply(event.getElement()));
 			}
-			else if (functionSort != null)
-			{
-				// Add the element at the right index
-				this.addSort(event);
-			}
 			else
 			{
 				this.add(event);
@@ -122,6 +119,36 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 		}
 	}
 
+	// TODO !!!!!!!!!!
+	// At the moment we use an hack by using the cast to T.
+	// We need to fix this because we never know for sure that this is T.
+	// The origin of the problem is because "before" in OAbstract has OAbstract
+	// type.
+	// The solution will consists in give T type for before and after.
+	@Override
+	public void updateAttributeChanged(final EventCollectionAttribute<? extends OAbstract> event) {
+
+		// Check if the element before modification was in this collection
+		if (this.content.contains(event.getElementBefore()))
+		{
+			// Then if the element still check the predicate, we update it
+			if (functionSelec.test((T) event.getElementAfter()))
+			{
+				this.content.set(this.content.indexOf(event.getElementBefore()), (T) event.getElementAfter());
+			}
+			// else we delete it
+			else
+			{
+				this.getContent().remove(this.content.indexOf(event.getElementBefore()));
+			}
+		}
+		// If it is a new element we add it
+		else
+		{
+			this.content.add((T) event.getElementAfter());
+		}
+	}
+
 	/**
 	 * Add the element in the list following the type of the collection itself.
 	 * 
@@ -129,15 +156,6 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 *            the element to add
 	 */
 	protected abstract void add(EventCollectionMessage<T> event);
-
-	/**
-	 * Add the element to the current index in the list following the type of
-	 * the collection itself.
-	 * 
-	 * @param element
-	 *            the element to add
-	 */
-	protected abstract void addSort(EventCollectionMessage<T> event);
 
 	/**
 	 * Remove the element in the list following the type of the collection
@@ -161,12 +179,6 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 * Returns a textual representation of the content.
 	 */
 	public String toString() {
-		StringBuilder sb = new StringBuilder("content : { ");
-		for (T element : content)
-		{
-			sb.append(element + " ; ");
-		}
-		sb.append(" } ");
-		return sb.toString();
+		return this.content.toString();
 	}
 }

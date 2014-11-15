@@ -6,38 +6,39 @@ import org.junit.Test;
 
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
+import emn.fil.collection.obs.type.OInteger;
 
 public class BagRemoveTest {
 
-	private AbstractCollection<Integer> a;
+	private AbstractCollection<OInteger> a;
 
 	public BagRemoveTest() {
-		this.a = new Bag<Integer>();
+		this.a = new Bag<OInteger>();
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		this.a.add(1);
-		this.a.add(2);
-		this.a.add(3);
-		this.a.add(4);
-		this.a.add(5);
+		this.a.add(new OInteger(1));
+		this.a.add(new OInteger(2));
+		this.a.add(new OInteger(3));
+		this.a.add(new OInteger(4));
+		this.a.add(new OInteger(5));
 	}
 
 	@Test
 	public void testRemove1() {
-		this.a.remove(1);
-		Assert.assertArrayEquals(new Integer[]{2, 3, 4, 5}, this.a.getContent().toArray());
+		this.a.remove(new OInteger(1));
+		Assert.assertArrayEquals(new OInteger[] { new OInteger(2), new OInteger(3), new OInteger(4), new OInteger(5) }, this.a.getContent().toArray());
 	}
-	
+
 	@Test
 	public void testRemoveAll() {
-		this.a.remove(1);
-		this.a.remove(2);
-		this.a.remove(3);
-		this.a.remove(4);
-		this.a.remove(5);
-		Assert.assertArrayEquals(new Integer[]{}, this.a.getContent().toArray());
+		this.a.remove(new OInteger(1));
+		this.a.remove(new OInteger(2));
+		this.a.remove(new OInteger(3));
+		this.a.remove(new OInteger(4));
+		this.a.remove(new OInteger(5));
+		Assert.assertArrayEquals(new OInteger[] {}, this.a.getContent().toArray());
 	}
 
 }
