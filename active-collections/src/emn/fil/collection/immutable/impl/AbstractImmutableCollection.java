@@ -93,7 +93,8 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	 */
 	@Override
 	public void update(final EventCollectionMessage<T> event) {
-		switch (event.getEventCollection()) {
+		switch (event.getEventCollection())
+		{
 		case ADD:
 
 			if (functionSelec != null && !functionSelec.test(event.getElement()))
@@ -106,10 +107,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 				// Modify element to match the function before adding
 				event.setElement(functionApply.apply(event.getElement()));
 			}
-			else
-			{
-				this.add(event);
-			}
+			this.add(event);
 			break;
 		case REMOVE:
 			this.remove(event);
@@ -127,25 +125,45 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	// The solution will consists in give T type for before and after.
 	@Override
 	public void updateAttributeChanged(final EventCollectionAttribute<? extends OAbstract> event) {
+		
+		T element = (functionApply != null) ? functionApply.apply((T) event.getElementBefore()) : (T) event.getElementBefore();
 
 		// Check if the element before modification was in this collection
-		if (this.content.contains(event.getElementBefore()))
-		{
-			// Then if the element still check the predicate, we update it
-			if (functionSelec.test((T) event.getElementAfter()))
+		if (this.content.contains(element))
+		{			
+			if (functionSelec != null)
 			{
-				this.content.set(this.content.indexOf(event.getElementBefore()), (T) event.getElementAfter());
+				// Then if the element still check the predicate, we update it
+				if (functionSelec.test((T) event.getElementAfter()))
+				{
+					this.content.set(this.content.indexOf(event.getElementBefore()), (T) event.getElementAfter());
+				}
+				// else we delete it
+				else
+				{
+					this.getContent().remove(this.content.indexOf(event.getElementBefore()));
+				}
 			}
-			// else we delete it
-			else
+			// Modify element to match the function before updating
+			else if (functionApply != null)
 			{
-				this.getContent().remove(this.content.indexOf(event.getElementBefore()));
+				this.content.set(this.content.indexOf(element), functionApply.apply((T) event.getElementAfter()));
+			}
+			else if (functionSort != null)
+			{
+				// TODO
+				// change order if needed
 			}
 		}
 		// If it is a new element we add it
 		else
 		{
-			this.content.add((T) event.getElementAfter());
+			// The selection is the only one possible case for an add
+			if (functionSelec != null && functionSelec.test((T) event.getElementAfter()))
+			{
+				// Then if the element check the predicate, we add it
+				this.content.add((T) event.getElementAfter());
+			}
 		}
 	}
 

@@ -58,22 +58,35 @@ public class BagWithPersonneTest {
 	@Test
 	public void testUnion() {
 		this.c = a.union(b);
-		OPersonne[] tab = { new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(18, "Clement", 1),
-				new OPersonne(22, "Benjamin", 2), new OPersonne(10, "Julien", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18, "Clement", 1),
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(30, "Massimo", 3),
+				new OPersonne(18, "Clement", 1),
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(10, "Julien", 3)
+		};
 		Assert.assertArrayEquals(tab, this.c.getContent().toArray());
 	}
 
 	@Test
 	public void testIntersection() {
 		AbstractImmutableCollection<OPersonne> tmp = this.a.intersection(b);
-		OPersonne[] tab = { new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2)
+		};
 		Assert.assertArrayEquals(tab, tmp.getContent().toArray());
 	}
 
 	@Test
 	public void testDifference() {
 		AbstractImmutableCollection<OPersonne> tmp = this.a.difference(b);
-		OPersonne[] tab = { new OPersonne(30, "Massimo", 3), };
+		OPersonne[] tab =
+		{
+			new OPersonne(30, "Massimo", 3),
+		};
 		Assert.assertArrayEquals(tab, tmp.getContent().toArray());
 	}
 
@@ -83,8 +96,16 @@ public class BagWithPersonneTest {
 		final OPersonne element = new OPersonne(15, "Test", 3);
 		a.add(element);
 
-		OPersonne[] tab = { new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(18, "Clement", 1),
-				new OPersonne(22, "Benjamin", 2), new OPersonne(10, "Julien", 3), new OPersonne(15, "Test", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18, "Clement", 1),
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(30, "Massimo", 3),
+				new OPersonne(18, "Clement", 1),
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(10, "Julien", 3),
+				new OPersonne(15, "Test", 3)
+		};
 
 		final List<OPersonne> cContent = this.c.getContent();
 		Assert.assertEquals(this.a.size() + this.b.size(), this.c.size());
@@ -99,8 +120,14 @@ public class BagWithPersonneTest {
 		final OPersonne element = new OPersonne(18, "Clement", 1);
 		a.remove(element);
 
-		OPersonne[] tab = { new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2),
-				new OPersonne(10, "Julien", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(30, "Massimo", 3),
+				new OPersonne(18, "Clement", 1),
+				new OPersonne(22, "Benjamin", 2),
+				new OPersonne(10, "Julien", 3)
+		};
 
 		final List<OPersonne> cContent = this.c.getContent();
 		Assert.assertEquals(this.a.size() + this.b.size(), this.c.size());
@@ -111,7 +138,10 @@ public class BagWithPersonneTest {
 	@Test
 	public void testGetContent() {
 
-		OPersonne[] tab = { new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18, "Clement", 1), new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3)
+		};
 
 		Assert.assertArrayEquals(this.a.getContent().toArray(), tab);
 	}
@@ -120,7 +150,10 @@ public class BagWithPersonneTest {
 	public void testReject() {
 		AbstractImmutableCollection<OPersonne> tmp = this.a.reject(b);
 
-		OPersonne[] tab = { new OPersonne(30, "Massimo", 3) };
+		OPersonne[] tab =
+		{
+			new OPersonne(30, "Massimo", 3)
+		};
 
 		Assert.assertArrayEquals(tmp.getContent().toArray(), tab);
 	}
@@ -144,7 +177,10 @@ public class BagWithPersonneTest {
 
 		AbstractImmutableCollection<OPersonne> tmp = this.d.toUnique();
 
-		OPersonne[] tab = { new OPersonne(18, "Bertrand", 1), new OPersonne(22, "Camille", 2) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18, "Bertrand", 1), new OPersonne(22, "Camille", 2)
+		};
 
 		Assert.assertArrayEquals(tmp.getContent().toArray(), tab);
 	}
@@ -171,9 +207,24 @@ public class BagWithPersonneTest {
 		};
 		AbstractImmutableCollection<OPersonne> e = this.a.apply(func);
 
-		OPersonne[] tab = { new OPersonne(18 * 2, "Clement", 1), new OPersonne(22 * 2, "Benjamin", 2), new OPersonne(30 * 2, "Massimo", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(18 * 2, "Clement", 1), new OPersonne(22 * 2, "Benjamin", 2), new OPersonne(30 * 2, "Massimo", 3)
+		};
 
 		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+
+		a.add(new OPersonne(14, "Jeremy", 4));
+
+		OPersonne[] tab2 =
+		{
+				new OPersonne(18 * 2, "Clement", 1),
+				new OPersonne(22 * 2, "Benjamin", 2),
+				new OPersonne(30 * 2, "Massimo", 3),
+				new OPersonne(14 * 2, "Jeremy", 4)
+		};
+
+		Assert.assertArrayEquals(e.getContent().toArray(), tab2);
 	}
 
 	@Test
@@ -184,9 +235,30 @@ public class BagWithPersonneTest {
 		};
 		AbstractImmutableCollection<OPersonne> e = this.a.selection(func2);
 
-		OPersonne[] tab = { new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3) };
+		OPersonne[] tab =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3)
+		};
 
 		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+
+		a.add(new OPersonne(20, "Jeremy", 4));
+
+		OPersonne[] tab2 =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(20, "Jeremy", 4)
+		};
+
+		Assert.assertArrayEquals(e.getContent().toArray(), tab2);
+
+		a.add(new OPersonne(12, "Test", 5));
+
+		OPersonne[] tab3 =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(20, "Jeremy", 4)
+		};
+
+		Assert.assertArrayEquals(e.getContent().toArray(), tab3);
 	}
 
 	@Test
@@ -204,9 +276,77 @@ public class BagWithPersonneTest {
 			}
 		});
 		final AbstractImmutableCollection<OPersonne> b = a.sort((p1, p2) -> p1.getAge() - p2.getAge());
-		Assert.assertArrayEquals(new OPersonne[] { clement, benjamin, mamadou }, b.getContent().toArray());
+		Assert.assertArrayEquals(new OPersonne[]
+		{
+				clement, benjamin, mamadou
+		}, b.getContent().toArray());
 		a.add(jose);
-		Assert.assertArrayEquals(new OPersonne[] { clement, benjamin, jose, mamadou }, b.getContent().toArray());
+		Assert.assertArrayEquals(new OPersonne[]
+		{
+				clement, benjamin, jose, mamadou
+		}, b.getContent().toArray());
+	}
+
+	@Test
+	public void testReificationClassic() {
+		AbstractImmutableCollection<OPersonne> c = a.union(b);
+		Assert.assertEquals(18, c.getContent().get(0).getAge());
+		a.getContent().get(0).setAge(20);
+		Assert.assertEquals(20, c.getContent().get(0).getAge());
+	}
+
+	@Test
+	public void testReificationOnSelec() {
+		// Test Selec
+		Predicate<OPersonne> func2 = (OPersonne element) -> {
+			return element.getAge() > 18;
+		};
+		AbstractImmutableCollection<OPersonne> e = this.a.selection(func2);
+
+		OPersonne[] tab =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3)
+		};
+		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+
+		a.getContent().get(0).setAge(19);
+		OPersonne[] tab2 =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(19, "Clement", 1)
+		};
+		Assert.assertArrayEquals(e.getContent().toArray(), tab2);
+
+		a.getContent().get(0).setAge(17);
+		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+	}
+
+	@Test
+	public void testReificationOnApply() {
+		// Test Apply
+		Function<OPersonne, OPersonne> func = (element) -> {
+			return new OPersonne(element.getAge() * 2, element.getName(), element.getNumero());
+		};
+		AbstractImmutableCollection<OPersonne> e = this.a.apply(func);
+
+		OPersonne[] tab =
+		{
+				new OPersonne(18 * 2, "Clement", 1), new OPersonne(22 * 2, "Benjamin", 2), new OPersonne(30 * 2, "Massimo", 3)
+		};
+
+		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+
+		a.getContent().get(0).setAge(40);
+		OPersonne[] tab2 =
+		{
+				new OPersonne(40 * 2, "Clement", 1), new OPersonne(22 * 2, "Benjamin", 2), new OPersonne(30 * 2, "Massimo", 3),
+		};
+		Assert.assertArrayEquals(e.getContent().toArray(), tab2);
+	}
+
+	@Test
+	public void testReificationOnSort() {
+		// TODO
+		// cf implementation
 	}
 
 }

@@ -27,6 +27,6 @@ public abstract class OAbstract extends SubjectAttribute<OAbstract> implements C
 	 * Notify all the observers.
 	 */
 	protected void afterSet() {
-		this.notify(new EventCollectionAttribute<OAbstract>(before, this));
+		this.notify(new EventCollectionAttribute<OAbstract>(before, this.copy()));
 	}
 }
