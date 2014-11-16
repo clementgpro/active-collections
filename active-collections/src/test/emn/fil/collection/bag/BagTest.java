@@ -12,7 +12,7 @@ import org.junit.Test;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
-import test.emn.fil.collection.object.OInteger;
+import emn.fil.collection.obs.type.OInteger;
 
 public class BagTest {
 

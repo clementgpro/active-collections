@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import test.emn.fil.collection.object.OInteger;
+import emn.fil.collection.obs.type.OInteger;
 import test.emn.fil.collection.object.OPersonne;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;

@@ -1,4 +1,4 @@
-package test.emn.fil.collection.object;
+package emn.fil.collection.obs.type;
 
 import emn.fil.collection.obs.type.OAbstract;
 
