@@ -1,4 +1,6 @@
-package emn.fil.collection.obs.type;
+package test.emn.fil.collection.object;
+
+import emn.fil.collection.obs.type.OAbstract;
 
 public class OInteger extends OAbstract {
 

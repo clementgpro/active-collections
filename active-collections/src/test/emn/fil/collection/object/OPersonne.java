@@ -1,5 +1,7 @@
 package test.emn.fil.collection.object;
 
+import emn.fil.collection.obs.type.OAbstract;
+
 public class OPersonne extends OAbstract {
 	private int age;
 	private String name;
@@ -66,6 +68,11 @@ public class OPersonne extends OAbstract {
 
 	public String toString() {
 		return age + " " + name + " " + numero;
+	}
+	
+	@Override
+	public int compareTo(OAbstract arg0) {
+		return this.getAge() - ((OPersonne) arg0).getAge();
 	}
 
 }

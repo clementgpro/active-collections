@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
-import emn.fil.collection.obs.type.OInteger;
+import test.emn.fil.collection.object.OInteger;
 
 public class BagRemoveTest {
 

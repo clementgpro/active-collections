@@ -8,8 +8,8 @@ import org.junit.Test;
 import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
-import emn.fil.collection.obs.type.OInteger;
-import emn.fil.collection.obs.type.OPersonne;
+import test.emn.fil.collection.object.OInteger;
+import test.emn.fil.collection.object.OPersonne;
 
 public class SetTest {
 
