@@ -27,20 +27,4 @@ public class ImmutableOrderedSet<T extends OAbstract> extends ImmutableSet<T> {
 	public ImmutableOrderedSet(List<T> content, Comparator<T> functionSort) {
 		super(content, functionSort);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void add(EventCollectionMessage<T> event) {
-		super.add(event);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void remove(EventCollectionMessage<T> event) {
-		super.remove(event);
-	}
 }

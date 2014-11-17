@@ -40,13 +40,6 @@ public class ImmutableBag<T extends OAbstract> extends AbstractImmutableCollecti
 	 */
 	@Override
 	protected void remove(EventCollectionMessage<T> event) {
-		for (T element : this.getContent())
-		{
-			if (element.equals(event.getElement()))
-			{
-				this.getContent().remove(element);
-				break;
-			}
-		}
+		this.getContent().remove(event.getElement());
 	}
 }

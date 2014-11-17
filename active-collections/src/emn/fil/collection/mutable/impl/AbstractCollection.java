@@ -236,6 +236,13 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		}).collect(Collectors.toList());
 		return this.createCollectionTypeWhenSort(newList, functionSort);
 	}
+	
+	public void add(T element) {
+		if (this.add(this.content, element))
+		{
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
+		}
+	}
 
 	/**
 	 * Function used inside the collection classes They are implemented by

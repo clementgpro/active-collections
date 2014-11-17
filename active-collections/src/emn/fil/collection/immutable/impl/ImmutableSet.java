@@ -37,12 +37,4 @@ public class ImmutableSet<T extends OAbstract> extends ImmutableBag<T> implement
 			this.getContent().add(event.getElement());
 		}
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void remove(EventCollectionMessage<T> event) {
-		this.getContent().remove(event.getElement());
-	}
 }

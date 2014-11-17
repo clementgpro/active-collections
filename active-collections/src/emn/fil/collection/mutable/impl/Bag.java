@@ -27,13 +27,6 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 		return newList.add(element);
 	}
 
-	public void add(T element) {
-		if (this.add(this.content, element))
-		{
-			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
-		}
-	}
-
 	public String toString() {
 		return this.getContent().toString();
 	}

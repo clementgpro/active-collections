@@ -10,9 +10,12 @@ import emn.fil.collection.immutable.impl.ImmutableBag;
 import emn.fil.collection.immutable.impl.ImmutableOrderedSet;
 import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.immutable.impl.ImmutableSet;
+import emn.fil.collection.mutable.interfaces.IOrdered;
+import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.event.TypeEventEnum;
 import emn.fil.collection.obs.type.OAbstract;
 
-public class OrderedSet<T extends OAbstract> extends Set<T> {
+public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<T> {
 
 	private Sequence<T> sequence;
 
@@ -22,6 +25,15 @@ public class OrderedSet<T extends OAbstract> extends Set<T> {
 	
 	public OrderedSet() {
 		super();
+	}
+	
+	@Override
+	public void add(int index, T element) {
+		if (!this.content.contains(element))
+		{
+			this.content.add(index, element);
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
+		}
 	}
 
 	@Override
