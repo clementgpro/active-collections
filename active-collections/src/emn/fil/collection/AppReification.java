@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import test.emn.fil.collection.object.OPersonne;
-import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
 
@@ -23,7 +22,7 @@ public class AppReification {
 		Predicate<OPersonne> function = (OPersonne element) -> {
 			return element.getAge() > 16;
 		};
-		AbstractImmutableCollection<OPersonne> b = a.selection(function);
+		AbstractCollection<OPersonne> b = a.selection(function);
 		System.out.println("A=" + a);
 		System.out.println("B=" + b);
 		System.out.println();

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.obs.type.OAbstract;
 
@@ -16,7 +15,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractImmutableCollection<T> union(final AbstractCollection<T> b);
+	public AbstractCollection<T> union(final AbstractCollection<T> b);
 
 	/**
 	 * Intersection with the other collection, b.
@@ -25,7 +24,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractImmutableCollection<T> intersection(final AbstractCollection<T> b);
+	public AbstractCollection<T> intersection(final AbstractCollection<T> b);
 
 	/**
 	 * Difference with the other collection, b.
@@ -34,7 +33,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractImmutableCollection<T> difference(final AbstractCollection<T> b);
+	public AbstractCollection<T> difference(final AbstractCollection<T> b);
 
 	/**
 	 * Add the element to the collection.
@@ -62,7 +61,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            to apply on elements
 	 * @return new collection with member applied by the func
 	 */
-	public AbstractImmutableCollection<T> apply(final Function<T, T> func);
+	public AbstractCollection<T> apply(final Function<T, T> func);
 
 	/**
 	 * Selection element of the collection that match the function
@@ -70,7 +69,7 @@ public interface ICollection<T extends OAbstract> {
 	 * @param func
 	 * @return
 	 */
-	public AbstractImmutableCollection<T> selection(final Predicate<T> func);
+	public AbstractCollection<T> selection(final Predicate<T> func);
 
 	/**
 	 * Check if this collection contains the same elements as B collection
@@ -85,7 +84,7 @@ public interface ICollection<T extends OAbstract> {
 	 * 
 	 * @return
 	 */
-	public AbstractImmutableCollection<T> toUnique();
+	public AbstractCollection<T> toUnique();
 
 	/**
 	 * Return a collection of A without element of B
@@ -93,7 +92,7 @@ public interface ICollection<T extends OAbstract> {
 	 * @param b
 	 * @return
 	 */
-	public AbstractImmutableCollection<T> reject(final AbstractCollection<T> b);
+	public AbstractCollection<T> reject(final AbstractCollection<T> b);
 
 	/**
 	 * Check if the collection is empty

@@ -21,7 +21,7 @@ public abstract class Subject<T extends OAbstract> {
 
 	protected void notify(EventCollectionMessage<T> event) {
 		for (Observer<T> o : observers) {
-			o.update(event);
+			o.updateCollection(event);
 		}
 	}
 	

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
-import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
 import emn.fil.collection.obs.type.OInteger;
@@ -22,7 +21,7 @@ public class SetTest {
 				add(new OInteger(1));
 			}
 		});
-		final AbstractImmutableCollection<OInteger> b = a.sort();
+		final AbstractCollection<OInteger> b = a.sort();
 		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(10) }, b.getContent().toArray());
 	}
 
@@ -35,7 +34,7 @@ public class SetTest {
 				add(new OInteger(1));
 			}
 		});
-		final AbstractImmutableCollection<OInteger> b = a.sort((x, y) -> x.getValue() - y.getValue());
+		final AbstractCollection<OInteger> b = a.sort((x, y) -> x.getValue() - y.getValue());
 		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(10) }, b.getContent().toArray());
 		a.add(new OInteger(9));
 		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(9), new OInteger(10) }, b.getContent().toArray());
@@ -55,7 +54,7 @@ public class SetTest {
 				add(clement);
 			}
 		});
-		final AbstractImmutableCollection<OPersonne> b = a.sort((p1, p2) -> p1.getAge() - p2.getAge());
+		final AbstractCollection<OPersonne> b = a.sort((p1, p2) -> p1.getAge() - p2.getAge());
 		Assert.assertArrayEquals(new OPersonne[] { clement, benjamin, mamadou }, b.getContent().toArray());
 		a.add(jose);
 		Assert.assertArrayEquals(new OPersonne[] { clement, benjamin, jose, mamadou }, b.getContent().toArray());

@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
-import emn.fil.collection.immutable.impl.ImmutableBag;
-import emn.fil.collection.immutable.impl.ImmutableSequence;
 import emn.fil.collection.mutable.interfaces.ICollection;
+import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
 import emn.fil.collection.obs.type.OAbstract;
@@ -23,6 +21,18 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 		super();
 	}
 
+	public Bag(List<T> content, Function<T, T> func) {
+		super(content, func);
+	}
+
+	public Bag(List<T> content, Predicate<T> func) {
+		super(content, func);
+	}
+
+	public Bag(List<T> content, Comparator<T> functionSort) {
+		super(content, functionSort);
+	}
+
 	protected boolean add(List<T> newList, T element) {
 		return newList.add(element);
 	}
@@ -32,30 +42,46 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList);
+	protected AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+		AbstractCollection<T> c = new Bag<T>(newList);
 		link(c, b);
 		return c;
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
+	protected AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+		AbstractCollection<T> c = new Bag<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
-		AbstractImmutableCollection<T> c = new ImmutableBag<T>(newList, func);
+	protected AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
+		AbstractCollection<T> c = new Bag<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
-		AbstractImmutableCollection<T> c = new ImmutableSequence<T>(newList, functionSort);
+	protected AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+		AbstractCollection<T> c = new Sequence<T>(newList, functionSort);
 		link(c);
 		return c;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void add(EventCollectionMessage<T> event) {
+		this.getContent().add(event.getElement());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void remove(EventCollectionMessage<T> event) {
+		this.getContent().remove(event.getElement());
 	}
 }

@@ -11,7 +11,7 @@ public interface Observer<T extends OAbstract> {
 	 * 
 	 * @param event
 	 */
-	public void update(EventCollectionMessage<T> event);
+	public void updateCollection(EventCollectionMessage<T> event);
 	
 	public void updateAttributeChanged(EventCollectionAttribute<? extends OAbstract> event);
 }
