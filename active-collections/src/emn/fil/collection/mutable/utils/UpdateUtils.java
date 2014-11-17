@@ -1,5 +1,7 @@
 package emn.fil.collection.mutable.utils;
 
+import java.util.Collections;
+
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
@@ -34,7 +36,7 @@ public class UpdateUtils<T extends OAbstract> {
 	public static <T extends OAbstract> void updateAttributeChanged(AbstractCollection<T> collection, EventCollectionAttribute<? extends OAbstract> event) {
 
 		T element = (collection.getFunctionApply() != null) ? collection.getFunctionApply().apply(event.getElementBefore()) : event.getElementBefore();
-
+		
 		// Check if the element before modification was in this collection
 		if (collection.getContent().contains(element))
 		{
@@ -58,8 +60,11 @@ public class UpdateUtils<T extends OAbstract> {
 			}
 			else if (collection.getFunctionSort() != null)
 			{
-				// TODO
-				// change order if needed
+				final int pos = Collections.binarySearch(collection.getContent(), event.getElementAfter());
+				if (pos < 0){
+					collection.getContent().remove(event.getElementBefore());
+					collection.getContent().add(-pos - 1, event.getElementAfter());
+				}
 			}
 		}
 		// If it is a new element we add it

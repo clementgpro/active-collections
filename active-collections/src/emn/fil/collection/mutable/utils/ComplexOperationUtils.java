@@ -26,7 +26,9 @@ public class ComplexOperationUtils<T extends OAbstract> {
 			public int compare(T element1, T element2) {
 				return functionSort.compare(element1, element2);
 			}
-		}).collect(Collectors.toList());
+		})
+		.map(x -> {return (T) x.copy();})
+		.collect(Collectors.toList());
 		return a.createCollectionTypeWhenSort(newList, functionSort);
 	}
 

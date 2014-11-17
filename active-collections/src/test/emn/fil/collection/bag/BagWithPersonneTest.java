@@ -344,8 +344,22 @@ public class BagWithPersonneTest {
 
 	@Test
 	public void testReificationOnSort() {
-		// TODO
-		// cf implementation
+		final OPersonne mamadou = new OPersonne(53, "Mamadou", 69);
+		final OPersonne benjamin = new OPersonne(22, "Benjamin", 666);
+		final OPersonne clement = new OPersonne(18, "Clement", 12345);
+		final ICollection<OPersonne> a = new Bag<OPersonne>(new ArrayList<OPersonne>() {
+			{
+				add(mamadou);
+				add(benjamin);
+				add(clement);
+			}
+		});
+		final ICollection<OPersonne> b = a.sort((p1, p2) -> p1.getAge() - p2.getAge());
+		mamadou.setAge(10);
+		Assert.assertArrayEquals(new OPersonne[]
+		{
+				mamadou, clement, benjamin 
+		}, b.getContent().toArray());
 	}
 	
 	@Test
