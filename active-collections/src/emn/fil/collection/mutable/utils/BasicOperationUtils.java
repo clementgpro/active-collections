@@ -3,6 +3,7 @@ package emn.fil.collection.mutable.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.type.OAbstract;
 
@@ -40,25 +41,9 @@ public class BasicOperationUtils<T extends OAbstract> {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>();
-		final List<T> bList = b.getContent();
-
-		// fill the list
-		final int aListSize = a.getContent().size();
-		int i = 0;
-		do
-		{
-			a.add(newList, a.getContent().get(i).copy());
-			i++;
-		} while (i < aListSize);
-
-		// fill the list
-		final int bListSize = bList.size();
-		i = 0;
-		do
-		{
-			a.add(newList, bList.get(i).copy());
-			i++;
-		} while (i < bListSize);
+		
+		copyList(a, newList, a.getContent());
+		copyList(a, newList, b.getContent());
 
 		// link
 		ICollection<T> c = a.createCollectionType(newList, b);
@@ -72,17 +57,11 @@ public class BasicOperationUtils<T extends OAbstract> {
 		final List<T> newList = new ArrayList<T>();
 		final List<T> bList = b.getContent();
 		
-		// fill the list
-		final int aListSize = a.getContent().size();
-		int i = 0;
-		do
-		{
-			a.add(newList, a.getContent().get(i).copy());
-			i++;
-		} while (i < aListSize);
+		// fill newList with element of A
+		copyList(a, newList, a.getContent());
 
 		final int bListSize = bList.size();
-		i = 0;
+		int i = 0;
 		do
 		{
 			T bListElement = bList.get(i);
@@ -97,6 +76,23 @@ public class BasicOperationUtils<T extends OAbstract> {
 		ICollection<T> c = a.createCollectionType(newList, b);
 
 		return c;
+	}
+	
+	/**
+	 * Copy the bList element into newList with creating new instances of them
+	 * @param a
+	 * @param newList
+	 * @param bList
+	 */
+	private static <T extends OAbstract> void copyList(ICollection<T> a, List<T> newList, List<T> bList) {
+		// fill the list
+		final int bListSize = bList.size();
+		int i = 0;
+		do
+		{
+			a.add(newList, bList.get(i).copy());
+			i++;
+		} while (i < bListSize);
 	}
 
 }
