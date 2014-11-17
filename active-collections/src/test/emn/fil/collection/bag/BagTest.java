@@ -46,20 +46,28 @@ public class BagTest {
 	@Test
 	public void testUnion() {
 		this.c = a.union(b);
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2),
-				new OInteger(3), new OInteger(4) }, this.c.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2), new OInteger(3), new OInteger(4)
+		}, this.c.getContent().toArray());
 	}
 
 	@Test
 	public void testIntersection() {
 		AbstractImmutableCollection<OInteger> tmp = this.a.intersection(d);
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(2) }, tmp.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+			new OInteger(2)
+		}, tmp.getContent().toArray());
 	}
 
 	@Test
 	public void testDifference() {
 		AbstractImmutableCollection<OInteger> tmp = this.a.difference(d);
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(3) }, tmp.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(3)
+		}, tmp.getContent().toArray());
 	}
 
 	@Test
@@ -69,8 +77,10 @@ public class BagTest {
 		a.add(element);
 		final List<OInteger> cContent = this.c.getContent();
 		Assert.assertEquals(this.a.size() + this.b.size(), this.c.size());
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2),
-				new OInteger(3), new OInteger(4), new OInteger(1) }, this.c.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2), new OInteger(3), new OInteger(4), new OInteger(1)
+		}, this.c.getContent().toArray());
 		Assert.assertEquals(element, cContent.get(cContent.size() - 1));
 	}
 
@@ -81,20 +91,28 @@ public class BagTest {
 		a.remove(element);
 		final List<OInteger> cContent = this.c.getContent();
 		Assert.assertEquals(this.a.size() + this.b.size(), this.c.size());
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2), new OInteger(3),
-				new OInteger(4) }, this.c.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(2), new OInteger(3), new OInteger(4)
+		}, this.c.getContent().toArray());
 		Assert.assertEquals(this.a.getContent().get(0), cContent.get(0));
 	}
 
 	@Test
 	public void testGetContent() {
-		Assert.assertArrayEquals(this.a.getContent().toArray(), new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3) });
+		Assert.assertArrayEquals(this.a.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3)
+		});
 	}
 
 	@Test
 	public void testReject() {
 		AbstractImmutableCollection<OInteger> tmp = this.a.reject(b);
-		Assert.assertArrayEquals(tmp.getContent().toArray(), new OInteger[] { new OInteger(1), new OInteger(2) });
+		Assert.assertArrayEquals(tmp.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(1), new OInteger(2)
+		});
 	}
 
 	@Test
@@ -113,7 +131,10 @@ public class BagTest {
 
 		AbstractImmutableCollection<OInteger> tmp = this.a.toUnique();
 
-		Assert.assertArrayEquals(tmp.getContent().toArray(), new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(3) });
+		Assert.assertArrayEquals(tmp.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(3)
+		});
 	}
 
 	@Test
@@ -138,7 +159,10 @@ public class BagTest {
 		};
 		AbstractImmutableCollection<OInteger> e = this.a.apply(func);
 
-		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[] { new OInteger(2), new OInteger(4), new OInteger(4), new OInteger(6) });
+		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(2), new OInteger(4), new OInteger(4), new OInteger(6)
+		});
 	}
 
 	@Test
@@ -149,7 +173,10 @@ public class BagTest {
 		};
 		AbstractImmutableCollection<OInteger> e = this.a.selection(func2);
 
-		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[] { new OInteger(2), new OInteger(2), new OInteger(3) });
+		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(2), new OInteger(2), new OInteger(3)
+		});
 	}
 
 	@Test
@@ -164,11 +191,15 @@ public class BagTest {
 
 		AbstractImmutableCollection<OInteger> e = tmp.sort();
 
-		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3),
-				new OInteger(5), new OInteger(7) });
+		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(5), new OInteger(7)
+		});
 		tmp.add(new OInteger(4));
-		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[] { new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3),
-				new OInteger(4), new OInteger(5), new OInteger(7) });
+		Assert.assertArrayEquals(e.getContent().toArray(), new OInteger[]
+		{
+				new OInteger(1), new OInteger(2), new OInteger(2), new OInteger(3), new OInteger(4), new OInteger(5), new OInteger(7)
+		});
 	}
 
 	@Test
@@ -181,9 +212,15 @@ public class BagTest {
 			}
 		});
 		final AbstractImmutableCollection<OInteger> b = a.sort((x, y) -> y.getValue() - x.getValue());
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(10), new OInteger(2), new OInteger(1) }, b.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(10), new OInteger(2), new OInteger(1)
+		}, b.getContent().toArray());
 		a.add(new OInteger(9));
-		Assert.assertArrayEquals(new OInteger[] { new OInteger(10), new OInteger(9), new OInteger(2), new OInteger(1) }, b.getContent().toArray());
+		Assert.assertArrayEquals(new OInteger[]
+		{
+				new OInteger(10), new OInteger(9), new OInteger(2), new OInteger(1)
+		}, b.getContent().toArray());
 	}
 
 }
