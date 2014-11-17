@@ -211,6 +211,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	public void add(T element) {
 		if (this.add(this.content, element))
 		{
+			element.addObserver(this);
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
 		}
 	}

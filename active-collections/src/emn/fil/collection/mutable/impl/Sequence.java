@@ -35,6 +35,7 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	}
 
 	public void add(final int index, final T element) {
+		element.addObserver(this);
 		this.content.add(index, element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 	}
