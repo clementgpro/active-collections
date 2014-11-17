@@ -25,7 +25,7 @@ public class BasicOperationUtils<T extends OAbstract> {
 			T bListElement = bList.get(i);
 			if (a.getContent().contains(bListElement))
 			{
-				a.add(newList, bListElement);
+				a.add(newList, bListElement.copy());
 			}
 			i++;
 		} while (i < bListSize);
@@ -69,11 +69,20 @@ public class BasicOperationUtils<T extends OAbstract> {
 	public static <T extends OAbstract> ICollection<T> difference(ICollection<T> a, ICollection<T> b) {
 
 		// on cree C
-		final List<T> newList = new ArrayList<T>(a.getContent());
+		final List<T> newList = new ArrayList<T>();
 		final List<T> bList = b.getContent();
+		
+		// fill the list
+		final int aListSize = a.getContent().size();
+		int i = 0;
+		do
+		{
+			a.add(newList, a.getContent().get(i).copy());
+			i++;
+		} while (i < aListSize);
 
 		final int bListSize = bList.size();
-		int i = 0;
+		i = 0;
 		do
 		{
 			T bListElement = bList.get(i);
