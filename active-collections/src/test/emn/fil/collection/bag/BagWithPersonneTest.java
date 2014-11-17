@@ -310,11 +310,6 @@ public class BagWithPersonneTest {
 		a.getContent().get(0).setAge(200);
 
 		a.remove(new OPersonne(200, "Clement", 1));
-
-		System.out.println(a);
-		System.out.println(c);
-		System.out.println(test);
-		System.out.println(test2);
 	}
 
 }
