@@ -11,12 +11,10 @@ import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
-import emn.fil.collection.obs.observer.Observer;
-import emn.fil.collection.obs.observer.ObserverAttribute;
 import emn.fil.collection.obs.subject.Subject;
 import emn.fil.collection.obs.type.OAbstract;
 
-public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T>, Observer<T>, ObserverAttribute<OAbstract> {
+public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T> {
 
 	/** Content of this collection. */
 	protected List<T> content;
@@ -194,7 +192,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Basic operation on Collection
 	 */
 
-	public AbstractCollection<T> intersection(AbstractCollection<T> b) {
+	public ICollection<T> intersection(ICollection<T> b) {
 
 		// we create C
 		final List<T> newList = new ArrayList<T>();
@@ -213,12 +211,12 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = this.createCollectionType(newList, b);
+		ICollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
 
-	public AbstractCollection<T> union(AbstractCollection<T> b) {
+	public ICollection<T> union(ICollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>(content);
@@ -234,12 +232,12 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = this.createCollectionType(newList, b);
+		ICollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
 
-	public AbstractCollection<T> difference(AbstractCollection<T> b) {
+	public ICollection<T> difference(ICollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>(this.getContent());
@@ -258,7 +256,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = this.createCollectionType(newList, b);
+		ICollection<T> c = this.createCollectionType(newList, b);
 
 		return c;
 	}
@@ -270,7 +268,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractCollection<T> c, AbstractCollection<T> b) {
+	protected void link(ICollection<T> c, ICollection<T> b) {
 		// link
 		this.addObserver(c);
 		b.addObserver(c);
@@ -283,7 +281,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractCollection<T> b) {
+	protected void link(ICollection<T> b) {
 		// link
 		this.addObserver(b);
 	}
@@ -292,14 +290,14 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Complex operation on Collection
 	 */
 
-	public AbstractCollection<T> apply(Function<T, T> func) {
+	public ICollection<T> apply(Function<T, T> func) {
 		final List<T> newList = this.content.stream().map(func).collect(Collectors.toList());
-		AbstractCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
+		ICollection<T> b = this.createCollectionTypeWhenApply(newList, func);
 
 		return b;
 	}
 
-	public AbstractCollection<T> selection(Predicate<T> func) {
+	public ICollection<T> selection(Predicate<T> func) {
 
 		final List<T> newList = new ArrayList<T>();
 
@@ -310,7 +308,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 				newList.add(element.copy());
 			}
 		}
-		AbstractCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
+		ICollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
 
 		return b;
 	}
@@ -319,7 +317,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Operations using Selection function of the collection
 	 */
 
-	public boolean exists(AbstractCollection<T> b) {
+	public boolean exists(ICollection<T> b) {
 		List<T> tmpList = new ArrayList<T>(b.getContent());
 		Predicate<T> func = (T e) -> {
 			boolean res = tmpList.contains(e);
@@ -329,7 +327,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		return this.selection(func).size() == b.size();
 	}
 
-	public AbstractCollection<T> toUnique() {
+	public ICollection<T> toUnique() {
 		List<T> tmpList = new ArrayList<T>();
 		Predicate<T> func = (T e) -> {
 			if (tmpList.contains(e))
@@ -346,7 +344,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		return this.selection(func);
 	}
 
-	public AbstractCollection<T> reject(AbstractCollection<T> b) {
+	public ICollection<T> reject(ICollection<T> b) {
 		List<T> tmpList = new ArrayList<T>(b.getContent());
 		Predicate<T> func = (T e) -> {
 			if (tmpList.contains(e))
@@ -367,11 +365,11 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Sort functions
 	 */
 
-	public AbstractCollection<T> sort() {
+	public ICollection<T> sort() {
 		return this.createCollectionTypeWhenSort(this.content.stream().sorted().collect(Collectors.toList()), null);
 	}
 
-	public AbstractCollection<T> sort(final Comparator<T> functionSort) {
+	public ICollection<T> sort(final Comparator<T> functionSort) {
 		final List<T> newList = this.content.stream().sorted(new Comparator<T>() {
 			public int compare(T element1, T element2) {
 				return functionSort.compare(element1, element2);
@@ -393,13 +391,13 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 */
 	protected abstract boolean add(List<T> newList, T element);
 
-	protected abstract AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
+	protected abstract ICollection<T> createCollectionType(List<T> newList, ICollection<T> b);
 
-	protected abstract AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
+	protected abstract ICollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
 
-	protected abstract AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
+	protected abstract ICollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
 
-	protected abstract AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort);
+	protected abstract ICollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort);
 
 	/**
 	 * Add the element in the list following the type of the collection itself.

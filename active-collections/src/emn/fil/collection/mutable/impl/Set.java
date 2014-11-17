@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.mutable.interfaces.IUniqueness;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.type.OAbstract;
@@ -41,8 +42,8 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
-		AbstractCollection<T> c;
+	protected ICollection<T> createCollectionType(final List<T> newList, final ICollection<T> b) {
+		ICollection<T> c;
 		if (b instanceof Bag)
 		{
 			c = new Bag<T>(newList);
@@ -56,15 +57,15 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
-		AbstractCollection<T> c = new Set<T>(newList, func);
+	protected ICollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
+		ICollection<T> c = new Set<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
-		AbstractCollection<T> c = new OrderedSet<T>(newList);
+	protected ICollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
+		ICollection<T> c = new OrderedSet<T>(newList);
 		link(c);
 		return c;
 	}

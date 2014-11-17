@@ -1,13 +1,16 @@
 package emn.fil.collection.mutable.interfaces;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.mutable.impl.AbstractCollection;
+import emn.fil.collection.obs.observer.Observer;
+import emn.fil.collection.obs.observer.ObserverAttribute;
+import emn.fil.collection.obs.subject.ISubject;
 import emn.fil.collection.obs.type.OAbstract;
 
-public interface ICollection<T extends OAbstract> {
+public interface ICollection<T extends OAbstract> extends ISubject<T>, Observer<T>, ObserverAttribute<OAbstract> {
 	/**
 	 * Union with the other collection, b.
 	 * 
@@ -15,7 +18,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractCollection<T> union(final AbstractCollection<T> b);
+	public ICollection<T> union(final ICollection<T> b);
 
 	/**
 	 * Intersection with the other collection, b.
@@ -24,7 +27,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractCollection<T> intersection(final AbstractCollection<T> b);
+	public ICollection<T> intersection(final ICollection<T> b);
 
 	/**
 	 * Difference with the other collection, b.
@@ -33,7 +36,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            the other collection
 	 * @return the union collection
 	 */
-	public AbstractCollection<T> difference(final AbstractCollection<T> b);
+	public ICollection<T> difference(final ICollection<T> b);
 
 	/**
 	 * Add the element to the collection.
@@ -61,7 +64,7 @@ public interface ICollection<T extends OAbstract> {
 	 *            to apply on elements
 	 * @return new collection with member applied by the func
 	 */
-	public AbstractCollection<T> apply(final Function<T, T> func);
+	public ICollection<T> apply(final Function<T, T> func);
 
 	/**
 	 * Selection element of the collection that match the function
@@ -69,22 +72,26 @@ public interface ICollection<T extends OAbstract> {
 	 * @param func
 	 * @return
 	 */
-	public AbstractCollection<T> selection(final Predicate<T> func);
+	public ICollection<T> selection(final Predicate<T> func);
 
+	public ICollection<T> sort();
+
+	public ICollection<T> sort(final Comparator<T> functionSort);
+	
 	/**
 	 * Check if this collection contains the same elements as B collection
 	 * 
 	 * @param b
 	 * @return
 	 */
-	public boolean exists(final AbstractCollection<T> b);
+	public boolean exists(final ICollection<T> b);
 
 	/**
 	 * Return a collection which match the uniqueness predicate
 	 * 
 	 * @return
 	 */
-	public AbstractCollection<T> toUnique();
+	public ICollection<T> toUnique();
 
 	/**
 	 * Return a collection of A without element of B
@@ -92,7 +99,7 @@ public interface ICollection<T extends OAbstract> {
 	 * @param b
 	 * @return
 	 */
-	public AbstractCollection<T> reject(final AbstractCollection<T> b);
+	public ICollection<T> reject(final ICollection<T> b);
 
 	/**
 	 * Check if the collection is empty

@@ -6,9 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import emn.fil.collection.mutable.interfaces.ICollection;
-import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
-import emn.fil.collection.obs.event.TypeEventEnum;
 import emn.fil.collection.obs.type.OAbstract;
 
 public class Bag<T extends OAbstract> extends AbstractCollection<T> implements ICollection<T> {
@@ -42,29 +40,29 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
-		AbstractCollection<T> c = new Bag<T>(newList);
+	protected ICollection<T> createCollectionType(List<T> newList, ICollection<T> b) {
+		ICollection<T> c = new Bag<T>(newList);
 		link(c, b);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
-		AbstractCollection<T> c = new Bag<T>(newList, func);
+	protected ICollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+		ICollection<T> c = new Bag<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
-		AbstractCollection<T> c = new Bag<T>(newList, func);
+	protected ICollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
+		ICollection<T> c = new Bag<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
-		AbstractCollection<T> c = new Sequence<T>(newList, functionSort);
+	protected ICollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+		ICollection<T> c = new Sequence<T>(newList, functionSort);
 		link(c);
 		return c;
 	}
