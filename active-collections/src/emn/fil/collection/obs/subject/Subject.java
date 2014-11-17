@@ -19,13 +19,13 @@ public abstract class Subject<T extends OAbstract> {
 		this.observers.add(c);
 	}
 
-	protected void notify(EventCollectionMessage<T> event) {
+	public void notify(EventCollectionMessage<T> event) {
 		for (Observer<T> o : observers) {
 			o.updateCollection(event);
 		}
 	}
 	
-	protected void notifyAttributeChanged(EventCollectionAttribute<? extends OAbstract> event) {
+	public void notifyAttributeChanged(EventCollectionAttribute<? extends OAbstract> event) {
 		for (Observer<T> o : observers) {
 			o.updateAttributeChanged(event);
 		}

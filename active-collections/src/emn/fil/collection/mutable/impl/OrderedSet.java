@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.mutable.interfaces.IOrdered;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -17,11 +18,11 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	public OrderedSet(List<T> content) {
 		super(content);
 	}
-	
+
 	public OrderedSet() {
 		super();
 	}
-	
+
 	public OrderedSet(List<T> content, Function<T, T> func) {
 		super(content, func);
 	}
@@ -29,11 +30,11 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	public OrderedSet(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
-	
+
 	public OrderedSet(List<T> content, Comparator<T> functionSort) {
 		super(content, functionSort);
 	}
-	
+
 	@Override
 	public void add(int index, T element) {
 		if (!this.content.contains(element))
@@ -44,8 +45,8 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
-		AbstractCollection<T> c;
+	public ICollection<T> createCollectionType(List<T> newList, ICollection<T> b) {
+		ICollection<T> c;
 		if (b instanceof Bag)
 		{
 			c = new Bag<T>(newList);
@@ -67,22 +68,22 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
-		AbstractCollection<T> c = new OrderedSet<T>(newList, func);
+	public ICollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+		ICollection<T> c = new OrderedSet<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
-		AbstractCollection<T> c = new Sequence<T>(newList, func);
+	public ICollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
+		ICollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
-	
+
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
-		AbstractCollection<T> c = new OrderedSet<T>(newList);
+	public ICollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+		ICollection<T> c = new OrderedSet<T>(newList);
 		link(c);
 		return c;
 	}

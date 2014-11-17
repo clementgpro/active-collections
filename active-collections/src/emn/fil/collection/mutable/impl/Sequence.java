@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.mutable.interfaces.IOrdered;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
@@ -16,11 +17,11 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	public Sequence(List<T> content) {
 		super(content);
 	}
-	
+
 	public Sequence() {
 		super();
 	}
-	
+
 	public Sequence(List<T> content, Function<T, T> func) {
 		super(content, func);
 	}
@@ -28,7 +29,7 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	public Sequence(List<T> content, Predicate<T> func) {
 		super(content, func);
 	}
-	
+
 	public Sequence(List<T> content, Comparator<T> functionSort) {
 		super(content, functionSort);
 	}
@@ -37,15 +38,15 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 		this.content.add(index, element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 	}
-	
+
 	public void remove(final int index) {
 		this.content.remove(index);
 		this.notify(new EventCollectionMessage<T>(null, TypeEventEnum.REMOVE, index));
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
-		AbstractCollection<T> c;
+	public ICollection<T> createCollectionType(final List<T> newList, final ICollection<T> b) {
+		ICollection<T> c;
 		if (b instanceof Bag)
 		{
 			c = new Bag<T>(newList);
@@ -63,28 +64,28 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
-		AbstractCollection<T> c = new Sequence<T>(newList, func);
+	public ICollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
+		ICollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenApply(final List<T> newList, final Function<T, T> func) {
-		AbstractCollection<T> c = new Sequence<T>(newList, func);
+	public ICollection<T> createCollectionTypeWhenApply(final List<T> newList, final Function<T, T> func) {
+		ICollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	public AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
-		AbstractCollection<T> c = new Sequence<T>(newList);
+	public ICollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
+		ICollection<T> c = new Sequence<T>(newList);
 		link(c);
 		return c;
 	}
-	
+
 	//
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -102,13 +103,9 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 		}
 		else
 		{
-			// TODO we should have the following code but it's impossible for now
-			// cause getContent() is List<T> and T is not identified as a comparable
-			// despite T extends Oabstract which implements Comparable
-			// final int pos = Collections.binarySearch(getContent(), event.getElement());
-//			if (pos < 0)
-//				this.getContent().add(-pos - 1, event.getElement());
-			getContent().add(event.getElement());
+			final int pos = Collections.binarySearch(getContent(), event.getElement());
+			if (pos < 0)
+				this.getContent().add(-pos - 1, event.getElement());
 		}
 	}
 

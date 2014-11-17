@@ -15,12 +15,10 @@ import emn.fil.collection.mutable.utils.UpdateUtils;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
-import emn.fil.collection.obs.observer.Observer;
-import emn.fil.collection.obs.observer.ObserverAttribute;
 import emn.fil.collection.obs.subject.Subject;
 import emn.fil.collection.obs.type.OAbstract;
 
-public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T>, Observer<T>, ObserverAttribute<OAbstract> {
+public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T> {
 
 	/** Content of this collection. */
 	protected List<T> content;
@@ -139,15 +137,15 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Basic operation on Collection
 	 */
 
-	public AbstractCollection<T> intersection(AbstractCollection<T> b) {
+	public ICollection<T> intersection(ICollection<T> b) {
 		return BasicOperationUtils.intersection(this, b);
 	}
 
-	public AbstractCollection<T> union(AbstractCollection<T> b) {
+	public ICollection<T> union(ICollection<T> b) {
 		return BasicOperationUtils.union(this, b);
 	}
 
-	public AbstractCollection<T> difference(AbstractCollection<T> b) {
+	public ICollection<T> difference(ICollection<T> b) {
 		return BasicOperationUtils.difference(this, b);
 	}
 
@@ -158,7 +156,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractCollection<T> c, AbstractCollection<T> b) {
+	protected void link(ICollection<T> c, ICollection<T> b) {
 		// link
 		this.addObserver(c);
 		b.addObserver(c);
@@ -171,7 +169,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractCollection<T> b) {
+	protected void link(ICollection<T> b) {
 		// link
 		this.addObserver(b);
 	}
@@ -180,19 +178,19 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Operations using Selection function of the collection
 	 */
 
-	public AbstractCollection<T> selection(Predicate<T> func) {
+	public ICollection<T> selection(Predicate<T> func) {
 		return SelectionFunctionsUtils.selection(this, func);
 	}
 
-	public boolean exists(AbstractCollection<T> b) {
+	public boolean exists(ICollection<T> b) {
 		return SelectionFunctionsUtils.exists(this, b);
 	}
 
-	public AbstractCollection<T> toUnique() {
+	public ICollection<T> toUnique() {
 		return SelectionFunctionsUtils.toUnique(this);
 	}
 
-	public AbstractCollection<T> reject(AbstractCollection<T> b) {
+	public ICollection<T> reject(ICollection<T> b) {
 		return SelectionFunctionsUtils.reject(this, b);
 	}
 
@@ -200,15 +198,15 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * Complex operation on Collection
 	 */
 
-	public AbstractCollection<T> apply(Function<T, T> func) {
+	public ICollection<T> apply(Function<T, T> func) {
 		return ComplexOperationUtils.apply(this, func);
 	}
 
-	public AbstractCollection<T> sort() {
+	public ICollection<T> sort() {
 		return ComplexOperationUtils.sort(this);
 	}
 
-	public AbstractCollection<T> sort(final Comparator<T> functionSort) {
+	public ICollection<T> sort(final Comparator<T> functionSort) {
 		return ComplexOperationUtils.sort(this, functionSort);
 	}
 
@@ -218,19 +216,4 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
 		}
 	}
-
-	/**
-	 * Function used inside the collection classes They are implemented by
-	 * subclasses to match the requirement of the collection type
-	 */
-	public abstract boolean add(List<T> newList, T element);
-
-	public abstract AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
-
-	public abstract AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
-
-	public abstract AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
-
-	public abstract AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort);
-
 }

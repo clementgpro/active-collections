@@ -3,7 +3,7 @@ package emn.fil.collection.mutable.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import emn.fil.collection.mutable.impl.AbstractCollection;
+import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.type.OAbstract;
 
 public class BasicOperationUtils<T extends OAbstract> {
@@ -12,7 +12,7 @@ public class BasicOperationUtils<T extends OAbstract> {
 	 * Basic operation on Collection
 	 */
 
-	public static <T extends OAbstract> AbstractCollection<T> intersection(AbstractCollection<T> a, AbstractCollection<T> b) {
+	public static <T extends OAbstract> ICollection<T> intersection(ICollection<T> a, ICollection<T> b) {
 
 		// we create C
 		final List<T> newList = new ArrayList<T>();
@@ -31,12 +31,12 @@ public class BasicOperationUtils<T extends OAbstract> {
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = a.createCollectionType(newList, b);
+		ICollection<T> c = a.createCollectionType(newList, b);
 
 		return c;
 	}
 
-	public static <T extends OAbstract> AbstractCollection<T> union(AbstractCollection<T> a, AbstractCollection<T> b) {
+	public static <T extends OAbstract> ICollection<T> union(ICollection<T> a, ICollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>(a.getContent());
@@ -52,12 +52,12 @@ public class BasicOperationUtils<T extends OAbstract> {
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = a.createCollectionType(newList, b);
+		ICollection<T> c = a.createCollectionType(newList, b);
 
 		return c;
 	}
 
-	public static <T extends OAbstract> AbstractCollection<T> difference(AbstractCollection<T> a, AbstractCollection<T> b) {
+	public static <T extends OAbstract> ICollection<T> difference(ICollection<T> a, ICollection<T> b) {
 
 		// on cree C
 		final List<T> newList = new ArrayList<T>(a.getContent());
@@ -76,7 +76,7 @@ public class BasicOperationUtils<T extends OAbstract> {
 		} while (i < bListSize);
 
 		// link
-		AbstractCollection<T> c = a.createCollectionType(newList, b);
+		ICollection<T> c = a.createCollectionType(newList, b);
 
 		return c;
 	}
