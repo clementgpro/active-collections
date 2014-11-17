@@ -5,6 +5,7 @@ import java.util.Collections;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.event.TypeEventEnum;
 import emn.fil.collection.obs.type.OAbstract;
 
 public class UpdateUtils<T extends OAbstract> {
@@ -65,11 +66,8 @@ public class UpdateUtils<T extends OAbstract> {
 			}
 			else if (collection.getFunctionSort() != null)
 			{
-				final int pos = Collections.binarySearch(collection.getContent(), event.getElementAfter());
-				if (pos < 0){
-					collection.getContent().remove(event.getElementBefore());
-					collection.getContent().add(-pos - 1, event.getElementAfter());
-				}
+				collection.getContent().remove(event.getElementBefore());
+				collection.add(new EventCollectionMessage<T>(event.getElementAfter(), TypeEventEnum.ADD));
 			} else {
 				// case of union, intersection or difference
 				collection.getContent().set(collection.getContent().indexOf(event.getElementBefore()), event.getElementAfter());
