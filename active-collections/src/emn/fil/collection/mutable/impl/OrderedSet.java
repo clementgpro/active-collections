@@ -13,8 +13,6 @@ import emn.fil.collection.obs.type.OAbstract;
 
 public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<T> {
 
-	private Sequence<T> sequence;
-
 	public OrderedSet(List<T> content) {
 		super(content);
 	}
@@ -42,6 +40,11 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 			this.content.add(index, element);
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 		}
+	}
+	
+	public void remove(final int index) {
+		this.content.remove(index);
+		this.notify(new EventCollectionMessage<T>(null, TypeEventEnum.REMOVE, index));
 	}
 
 	@Override
