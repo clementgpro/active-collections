@@ -290,6 +290,7 @@ public class BagWithPersonneTest {
 	public void testReificationClassic() {
 		ICollection<OPersonne> c = a.union(b);
 		Assert.assertEquals(18, c.getContent().get(0).getAge());
+		// We check if the element in c has also been changed
 		a.getContent().get(0).setAge(20);
 		Assert.assertEquals(20, c.getContent().get(0).getAge());
 	}

@@ -45,8 +45,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 *            function used to create this collection
 	 */
 	public AbstractCollection(final List<T> content, final Function<T, T> functionApply) {
-		super();
-		this.content = content;
+		this(content);
 		this.functionApply = functionApply;
 	}
 
@@ -59,8 +58,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 *            function used to create this collection
 	 */
 	public AbstractCollection(final List<T> content, final Predicate<T> functionSelec) {
-		super();
-		this.content = content;
+		this(content);
 		this.functionSelec = functionSelec;
 	}
 
@@ -73,8 +71,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 *            function used to create this collection
 	 */
 	public AbstractCollection(final List<T> content, final Comparator<T> functionSort) {
-		super();
-		this.content = content;
+		this(content);
 		this.functionSort = functionSort;
 	}
 
