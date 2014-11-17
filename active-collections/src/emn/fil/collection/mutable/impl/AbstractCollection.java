@@ -7,19 +7,26 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import emn.fil.collection.immutable.impl.AbstractImmutableCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
+import emn.fil.collection.mutable.utils.BasicOperationUtils;
+import emn.fil.collection.mutable.utils.ComplexOperationUtils;
+import emn.fil.collection.mutable.utils.SelectionFunctionsUtils;
+import emn.fil.collection.mutable.utils.UpdateUtils;
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.event.TypeEventEnum;
-import emn.fil.collection.obs.observer.ObserverAttribute;
 import emn.fil.collection.obs.subject.Subject;
 import emn.fil.collection.obs.type.OAbstract;
 
-public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T>, ObserverAttribute<OAbstract> {
+public abstract class AbstractCollection<T extends OAbstract> extends Subject<T> implements ICollection<T> {
 
 	/** Content of this collection. */
 	protected List<T> content;
+
+	/** The Function used to create this collection */
+	private Function<T, T> functionApply;
+	private Predicate<T> functionSelec;
+	protected Comparator<T> functionSort;
 
 	public AbstractCollection(List<T> content) {
 		for (T element : content)
@@ -29,16 +36,86 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		this.content = content;
 	}
 
-	public void update(EventCollectionAttribute<OAbstract> event) {
-		this.notifyAttributeChanged(event);
+	/**
+	 * Constructor for AbstractImmutableCollection
+	 * 
+	 * @param content
+	 *            the content of the collection
+	 * @param functionApply
+	 *            function used to create this collection
+	 */
+	public AbstractCollection(final List<T> content, final Function<T, T> functionApply) {
+		this(content);
+		this.functionApply = functionApply;
+	}
+
+	/**
+	 * Constructor for AbstractImmutableCollection
+	 * 
+	 * @param content
+	 *            the content of the collection
+	 * @param functionSelec
+	 *            function used to create this collection
+	 */
+	public AbstractCollection(final List<T> content, final Predicate<T> functionSelec) {
+		this(content);
+		this.functionSelec = functionSelec;
+	}
+
+	/**
+	 * Constructor for AbstractImmutableCollection
+	 * 
+	 * @param content
+	 *            the content of the collection
+	 * @param functionSort
+	 *            function used to create this collection
+	 */
+	public AbstractCollection(final List<T> content, final Comparator<T> functionSort) {
+		this(content);
+		this.functionSort = functionSort;
 	}
 
 	public AbstractCollection() {
 		this.content = new ArrayList<T>();
 	}
 
+	/**
+	 * Update Method of Observer Pattern
+	 */
+
+	public void updateToCollectThatAttrChanged(EventCollectionAttribute<OAbstract> event) {
+		event.setIndex(this.content.indexOf(event.getElementBefore()));
+		this.notifyAttributeChanged(event);
+	}
+
+	@Override
+	public void updateCollection(EventCollectionMessage<T> event) {
+		UpdateUtils.updateCollection(this, event);
+	}
+
+	@Override
+	public void updateAttributeChanged(EventCollectionAttribute<? extends OAbstract> event) {
+		UpdateUtils.updateAttributeChanged(this, event);
+	}
+
+	/**
+	 * Basic functions of collection
+	 */
+
+	public Function<T, T> getFunctionApply() {
+		return functionApply;
+	}
+
+	public Predicate<T> getFunctionSelec() {
+		return functionSelec;
+	}
+
+	public Comparator<T> getFunctionSort() {
+		return functionSort;
+	}
+
 	public void remove(T element) {
-		this.getContent().remove(element);	
+		this.getContent().remove(element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.REMOVE));
 	}
 
@@ -50,82 +127,24 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		return this.content.size();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public AbstractImmutableCollection<T> intersection(AbstractCollection<T> b) {
-
-		// we create C
-		final List<T> newList = new ArrayList<T>();
-		final List<T> bList = b.getContent();
-
-		final int bListSize = bList.size();
-		int i = 0;
-		do
-		{
-			T bListElement = bList.get(i);
-			if (this.content.contains(bListElement))
-			{
-				add(newList, bListElement);
-			}
-			i++;
-		} while (i < bListSize);
-
-		// link
-		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
-
-		return c;
+	public List<T> getContent() {
+		return content;
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Basic operation on Collection
 	 */
-	public AbstractImmutableCollection<T> union(AbstractCollection<T> b) {
 
-		// on cree C
-		final List<T> newList = new ArrayList<T>(content);
-		final List<T> bList = b.getContent();
-
-		// evite les doublons
-		final int bListSize = bList.size();
-		int i = 0;
-		do
-		{
-			add(newList, bList.get(i));
-			i++;
-		} while (i < bListSize);
-
-		// link
-		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
-
-		return c;
+	public ICollection<T> intersection(ICollection<T> b) {
+		return BasicOperationUtils.intersection(this, b);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public AbstractImmutableCollection<T> difference(AbstractCollection<T> b) {
+	public ICollection<T> union(ICollection<T> b) {
+		return BasicOperationUtils.union(this, b);
+	}
 
-		// on cree C
-		final List<T> newList = new ArrayList<T>(this.getContent());
-		final List<T> bList = b.getContent();
-
-		final int bListSize = bList.size();
-		int i = 0;
-		do
-		{
-			T bListElement = bList.get(i);
-			if (this.content.contains(bListElement))
-			{
-				newList.remove(bListElement);
-			}
-			i++;
-		} while (i < bListSize);
-
-		// link
-		AbstractImmutableCollection<T> c = this.createCollectionType(newList, b);
-
-		return c;
+	public ICollection<T> difference(ICollection<T> b) {
+		return BasicOperationUtils.difference(this, b);
 	}
 
 	/**
@@ -135,7 +154,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractImmutableCollection<T> c, AbstractCollection<T> b) {
+	protected void link(ICollection<T> c, ICollection<T> b) {
 		// link
 		this.addObserver(c);
 		b.addObserver(c);
@@ -148,113 +167,52 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 * @param b
 	 * @return
 	 */
-	protected void link(AbstractImmutableCollection<T> b) {
+	protected void link(ICollection<T> b) {
 		// link
 		this.addObserver(b);
 	}
 
-	public List<T> getContent() {
-		return content;
+	/**
+	 * Operations using Selection function of the collection
+	 */
+
+	public ICollection<T> selection(Predicate<T> func) {
+		return SelectionFunctionsUtils.selection(this, func);
 	}
 
-	public AbstractImmutableCollection<T> apply(Function<T, T> func) {
-		final List<T> newList = this.content.stream().map(func).collect(Collectors.toList());
-		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenApply(newList, func);
-
-		return b;
+	public boolean exists(ICollection<T> b) {
+		return SelectionFunctionsUtils.exists(this, b);
 	}
 
-	public AbstractImmutableCollection<T> selection(Predicate<T> func) {
-
-		final List<T> newList = new ArrayList<T>();
-
-		for (T element : this.content)
-		{
-			if (func.test(element))
-			{
-				newList.add(element.copy());
-			}
-		}
-		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);
-
-		return b;
+	public ICollection<T> toUnique() {
+		return SelectionFunctionsUtils.toUnique(this);
 	}
 
-	public boolean exists(AbstractCollection<T> b) {
-		List<T> tmpList = new ArrayList<T>(b.getContent());
-		Predicate<T> func = (T e) -> {
-			boolean res = tmpList.contains(e);
-			tmpList.remove(e);
-			return res;
-		};
-		return this.selection(func).size() == b.size();
-	}
-
-	public AbstractImmutableCollection<T> toUnique() {
-		List<T> tmpList = new ArrayList<T>();
-		Predicate<T> func = (T e) -> {
-			if (tmpList.contains(e))
-			{
-				return false;
-			}
-			else
-			{
-				tmpList.add(e);
-				return true;
-			}
-		};
-
-		return this.selection(func);
-	}
-
-	public AbstractImmutableCollection<T> reject(AbstractCollection<T> b) {
-		List<T> tmpList = new ArrayList<T>(b.getContent());
-		Predicate<T> func = (T e) -> {
-			if (tmpList.contains(e))
-			{
-				tmpList.remove(e);
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		};
-
-		return this.selection(func);
-	}
-
-	public AbstractImmutableCollection<T> sort() {
-		return this.createCollectionTypeWhenSort(this.content.stream().sorted().collect(Collectors.toList()), null);
-	}
-
-	public AbstractImmutableCollection<T> sort(final Comparator<T> functionSort) {
-		final List<T> newList = this.content.stream().sorted(new Comparator<T>() {
-			public int compare(T element1, T element2) {
-				return functionSort.compare(element1, element2);
-			}
-		}).collect(Collectors.toList());
-		return this.createCollectionTypeWhenSort(newList, functionSort);
-	}
-	
-	public void add(T element) {
-		if (this.add(this.content, element))
-		{
-			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
-		}
+	public ICollection<T> reject(ICollection<T> b) {
+		return SelectionFunctionsUtils.reject(this, b);
 	}
 
 	/**
-	 * Function used inside the collection classes They are implemented by
-	 * subclasses to match the requirement of the collection type
+	 * Complex operation on Collection
 	 */
-	protected abstract boolean add(List<T> newList, T element);
 
-	protected abstract AbstractImmutableCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b);
+	public ICollection<T> apply(Function<T, T> func) {
+		return ComplexOperationUtils.apply(this, func);
+	}
 
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func);
+	public ICollection<T> sort() {
+		return ComplexOperationUtils.sort(this);
+	}
 
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func);
+	public ICollection<T> sort(final Comparator<T> functionSort) {
+		return ComplexOperationUtils.sort(this, functionSort);
+	}
 
-	protected abstract AbstractImmutableCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort);
+	public void add(T element) {
+		if (this.add(this.content, element))
+		{
+			element.addObserver(this);
+			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD));
+		}
+	}
 }
