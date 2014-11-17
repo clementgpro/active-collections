@@ -34,7 +34,6 @@ public class UpdateUtils<T extends OAbstract> {
 	}
 
 	public static <T extends OAbstract> void updateAttributeChanged(AbstractCollection<T> collection, EventCollectionAttribute<? extends OAbstract> event) {
-
 		T element = (collection.getFunctionApply() != null) ? collection.getFunctionApply().apply(event.getElementBefore()) : event.getElementBefore();
 		
 		// Check if the element before modification was in this collection
@@ -46,17 +45,23 @@ public class UpdateUtils<T extends OAbstract> {
 				if (collection.getFunctionSelec().test(event.getElementAfter()))
 				{
 					collection.getContent().set(collection.getContent().indexOf(event.getElementBefore()), event.getElementAfter());
+					
+					// Notify children
+					collection.notifyAttributeChanged(event);
 				}
 				// else we delete it
 				else
 				{
-					collection.getContent().remove(collection.getContent().indexOf(event.getElementBefore()));
+					collection.remove(event.getElementBefore());
 				}
 			}
 			// Modify element to match the function before updating
 			else if (collection.getFunctionApply() != null)
 			{
 				collection.getContent().set(collection.getContent().indexOf(element), collection.getFunctionApply().apply(event.getElementAfter()));
+				
+				// Notify children
+				collection.notifyAttributeChanged(event);
 			}
 			else if (collection.getFunctionSort() != null)
 			{
@@ -65,6 +70,12 @@ public class UpdateUtils<T extends OAbstract> {
 					collection.getContent().remove(event.getElementBefore());
 					collection.getContent().add(-pos - 1, event.getElementAfter());
 				}
+			} else {
+				// case of union, intersection or difference
+				collection.getContent().set(collection.getContent().indexOf(event.getElementBefore()), event.getElementAfter());
+				
+				// Notify children
+				collection.notifyAttributeChanged(event);
 			}
 		}
 		// If it is a new element we add it
@@ -74,7 +85,7 @@ public class UpdateUtils<T extends OAbstract> {
 			if (collection.getFunctionSelec() != null && collection.getFunctionSelec().test(event.getElementAfter()))
 			{
 				// Then if the element check the predicate, we add it
-				collection.getContent().add(event.getElementAfter());
+				collection.add(event.getElementAfter());
 			}
 		}
 	}

@@ -95,17 +95,17 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 		{
 			final int pos = Collections.binarySearch(getContent(), event.getElement(), this.functionSort);
 			if (pos < 0)
-				getContent().add(-pos - 1, event.getElement());
+				add(-pos - 1, event.getElement());
 		}
 		else if (event.getIndex() != 0)
 		{
-			getContent().add(event.getIndex(), event.getElement());
+			add(event.getIndex(), event.getElement());
 		}
 		else
 		{
 			final int pos = Collections.binarySearch(getContent(), event.getElement());
 			if (pos < 0)
-				this.getContent().add(-pos - 1, event.getElement());
+				add(-pos - 1, event.getElement());
 		}
 	}
 
@@ -116,11 +116,11 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	public void remove(EventCollectionMessage<T> event) {
 		if (event.getElement() != null)
 		{
-			getContent().remove(event.getElement());
+			remove(event.getElement());
 		}
 		else
 		{
-			getContent().remove(event.getIndex());
+			remove(event.getIndex());
 		}
 	}
 

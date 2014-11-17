@@ -79,7 +79,7 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	public void add(EventCollectionMessage<T> event) {
 		if (!this.getContent().contains(event.getElement()))
 		{
-			this.getContent().add(event.getElement());
+			add(event.getElement());
 		}
 	}
 }

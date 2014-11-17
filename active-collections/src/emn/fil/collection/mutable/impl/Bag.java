@@ -72,7 +72,7 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 	 */
 	@Override
 	public void add(EventCollectionMessage<T> event) {
-		this.getContent().add(event.getElement());
+		this.add(event.getElement());
 	}
 
 	/**
@@ -80,6 +80,6 @@ public class Bag<T extends OAbstract> extends AbstractCollection<T> implements I
 	 */
 	@Override
 	public void remove(EventCollectionMessage<T> event) {
-		this.getContent().remove(event.getElement());
+		this.remove(event.getElement());
 	}
 }

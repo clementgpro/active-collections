@@ -7,7 +7,7 @@ import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.type.OAbstract;
 
 public class BasicOperationUtils<T extends OAbstract> {
-	
+
 	/**
 	 * Basic operation on Collection
 	 */
@@ -39,15 +39,24 @@ public class BasicOperationUtils<T extends OAbstract> {
 	public static <T extends OAbstract> ICollection<T> union(ICollection<T> a, ICollection<T> b) {
 
 		// on cree C
-		final List<T> newList = new ArrayList<T>(a.getContent());
+		final List<T> newList = new ArrayList<T>();
 		final List<T> bList = b.getContent();
 
-		// evite les doublons
-		final int bListSize = bList.size();
+		// fill the list
+		final int aListSize = a.getContent().size();
 		int i = 0;
 		do
 		{
-			a.add(newList, bList.get(i));
+			a.add(newList, a.getContent().get(i).copy());
+			i++;
+		} while (i < aListSize);
+
+		// fill the list
+		final int bListSize = bList.size();
+		i = 0;
+		do
+		{
+			a.add(newList, bList.get(i).copy());
 			i++;
 		} while (i < bListSize);
 

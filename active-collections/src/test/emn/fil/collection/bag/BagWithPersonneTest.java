@@ -295,7 +295,7 @@ public class BagWithPersonneTest {
 	}
 
 	@Test
-	public void testReificationOnSelec() {
+	public void testReificationOnSelect() {
 		// Test Selec
 		Predicate<OPersonne> func2 = (OPersonne element) -> {
 			return element.getAge() > 18;
@@ -307,6 +307,9 @@ public class BagWithPersonneTest {
 				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3)
 		};
 		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+		
+		// test reification on union
+		ICollection<OPersonne> test = e.union(d);
 
 		a.getContent().get(0).setAge(19);
 		OPersonne[] tab2 =
@@ -314,9 +317,25 @@ public class BagWithPersonneTest {
 				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), new OPersonne(19, "Clement", 1)
 		};
 		Assert.assertArrayEquals(e.getContent().toArray(), tab2);
+		
+		OPersonne[] tab3 =
+		{
+				new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), 
+				new OPersonne(18, "Bertrand", 1), new OPersonne(18, "Bertrand", 1), new OPersonne(18, "Bertrand", 1),
+				new OPersonne(22, "Camille", 2), new OPersonne(19, "Clement", 1)
+		};
+		Assert.assertArrayEquals(test.getContent().toArray(), tab3);
 
 		a.getContent().get(0).setAge(17);
 		Assert.assertArrayEquals(e.getContent().toArray(), tab);
+		
+		OPersonne[] tab4 =
+			{
+					new OPersonne(22, "Benjamin", 2), new OPersonne(30, "Massimo", 3), 
+					new OPersonne(18, "Bertrand", 1), new OPersonne(18, "Bertrand", 1), new OPersonne(18, "Bertrand", 1),
+					new OPersonne(22, "Camille", 2)
+			};
+			Assert.assertArrayEquals(test.getContent().toArray(), tab4);
 	}
 
 	@Test
@@ -377,7 +396,15 @@ public class BagWithPersonneTest {
 		Assert.assertArrayEquals(tab, this.c.getContent().toArray());
 		
 		ICollection<OPersonne> test = d.union(c);
-		d.getContent().get(0).setAge(100);
+		ICollection<OPersonne> test2 = test.union(d);
+		a.getContent().get(0).setAge(200);
+		
+		a.remove(new OPersonne(200, "Clement", 1));
+		
+		System.out.println(a);
+		System.out.println(c);
+		System.out.println(test);
+		System.out.println(test2);
 	}
 
 }

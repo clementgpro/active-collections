@@ -87,6 +87,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 	 */
 
 	public void updateToCollectThatAttrChanged(EventCollectionAttribute<OAbstract> event) {
+		event.setIndex(this.content.indexOf(event.getElementBefore()));
 		this.notifyAttributeChanged(event);
 	}
 
