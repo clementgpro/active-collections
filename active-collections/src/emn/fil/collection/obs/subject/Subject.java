@@ -8,7 +8,7 @@ import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
 import emn.fil.collection.obs.type.OAbstract;
 
-public abstract class Subject<T> {
+public abstract class Subject<T extends OAbstract> {
 	protected List<Observer<T>> observers;
 
 	public Subject() {

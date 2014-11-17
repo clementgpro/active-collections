@@ -28,6 +28,11 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 		this.content.add(index, element);
 		this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 	}
+	
+	public void remove(final int index) {
+		this.content.remove(index);
+		this.notify(new EventCollectionMessage<T>(null, TypeEventEnum.REMOVE, index));
+	}
 
 	@Override
 	protected AbstractImmutableCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {

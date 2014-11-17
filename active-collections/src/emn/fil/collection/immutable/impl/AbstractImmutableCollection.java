@@ -18,7 +18,7 @@ import emn.fil.collection.obs.type.OAbstract;
  *
  * @param <T>
  */
-public abstract class AbstractImmutableCollection<T> implements Observer<T>, IImmutableCollection<T> {
+public abstract class AbstractImmutableCollection<T extends OAbstract> implements Observer<T>, IImmutableCollection<T> {
 	/** The content of the collection. */
 	private List<T> content;
 
@@ -126,7 +126,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 	@Override
 	public void updateAttributeChanged(final EventCollectionAttribute<? extends OAbstract> event) {
 		
-		T element = (functionApply != null) ? functionApply.apply((T) event.getElementBefore()) : (T) event.getElementBefore();
+		T element = (functionApply != null) ? functionApply.apply(event.getElementBefore()) : event.getElementBefore();
 
 		// Check if the element before modification was in this collection
 		if (this.content.contains(element))
@@ -134,9 +134,9 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 			if (functionSelec != null)
 			{
 				// Then if the element still check the predicate, we update it
-				if (functionSelec.test((T) event.getElementAfter()))
+				if (functionSelec.test(event.getElementAfter()))
 				{
-					this.content.set(this.content.indexOf(event.getElementBefore()), (T) event.getElementAfter());
+					this.content.set(this.content.indexOf(event.getElementBefore()), event.getElementAfter());
 				}
 				// else we delete it
 				else
@@ -147,7 +147,7 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 			// Modify element to match the function before updating
 			else if (functionApply != null)
 			{
-				this.content.set(this.content.indexOf(element), functionApply.apply((T) event.getElementAfter()));
+				this.content.set(this.content.indexOf(element), functionApply.apply(event.getElementAfter()));
 			}
 			else if (functionSort != null)
 			{
@@ -159,10 +159,10 @@ public abstract class AbstractImmutableCollection<T> implements Observer<T>, IIm
 		else
 		{
 			// The selection is the only one possible case for an add
-			if (functionSelec != null && functionSelec.test((T) event.getElementAfter()))
+			if (functionSelec != null && functionSelec.test(event.getElementAfter()))
 			{
 				// Then if the element check the predicate, we add it
-				this.content.add((T) event.getElementAfter());
+				this.content.add(event.getElementAfter());
 			}
 		}
 	}

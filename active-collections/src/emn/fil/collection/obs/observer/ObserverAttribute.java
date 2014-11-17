@@ -1,8 +1,9 @@
 package emn.fil.collection.obs.observer;
 
 import emn.fil.collection.obs.event.EventCollectionAttribute;
+import emn.fil.collection.obs.type.OAbstract;
 
-public interface ObserverAttribute<T> {
+public interface ObserverAttribute<T extends OAbstract> {
 
 	/**
 	 * Update the object with the following event.

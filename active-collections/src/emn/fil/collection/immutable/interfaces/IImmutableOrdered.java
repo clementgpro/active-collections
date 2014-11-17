@@ -1,5 +1,7 @@
 package emn.fil.collection.immutable.interfaces;
 
-public interface IImmutableOrdered<T> {
+import emn.fil.collection.obs.type.OAbstract;
+
+public interface IImmutableOrdered<T extends OAbstract> {
 
 }

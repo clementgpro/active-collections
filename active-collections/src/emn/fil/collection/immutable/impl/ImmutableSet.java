@@ -7,8 +7,9 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.interfaces.IImmutableUniqueness;
 import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class ImmutableSet<T> extends ImmutableBag<T> implements IImmutableUniqueness<T> {
+public class ImmutableSet<T extends OAbstract> extends ImmutableBag<T> implements IImmutableUniqueness<T> {
 
 	public ImmutableSet(List<T> content) {
 		super(content);

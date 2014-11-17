@@ -1,6 +1,8 @@
 package emn.fil.collection.immutable.interfaces;
 
-public interface IImmutableCollection<T> {
+import emn.fil.collection.obs.type.OAbstract;
+
+public interface IImmutableCollection<T extends OAbstract>  {
 	
 	/**
 	 * Check if the collection is empty

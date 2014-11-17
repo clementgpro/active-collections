@@ -7,8 +7,9 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.interfaces.IImmutableCollection;
 import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class ImmutableBag<T> extends AbstractImmutableCollection<T> implements IImmutableCollection<T> {
+public class ImmutableBag<T extends OAbstract> extends AbstractImmutableCollection<T> implements IImmutableCollection<T> {
 
 	public ImmutableBag(List<T> content) {
 		super(content);

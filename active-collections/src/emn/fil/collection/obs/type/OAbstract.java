@@ -12,7 +12,7 @@ public abstract class OAbstract extends SubjectAttribute<OAbstract> implements C
 	 * 
 	 * @return the copy
 	 */
-	public abstract OAbstract copy();
+	public abstract <T extends OAbstract> T copy();
 
 	public abstract boolean equals(final Object o);
 

@@ -26,7 +26,7 @@ public class OInteger extends OAbstract {
 	}
 
 	@Override
-	public OAbstract copy() {
+	public OInteger copy() {
 		return new OInteger(this.value);
 	}
 

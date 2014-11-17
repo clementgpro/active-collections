@@ -5,8 +5,9 @@ import java.util.List;
 
 import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.observer.ObserverAttribute;
+import emn.fil.collection.obs.type.OAbstract;
 
-public abstract class SubjectAttribute<T> {
+public abstract class SubjectAttribute<T extends OAbstract> {
 	protected List<ObserverAttribute<T>> observers;
 
 	public SubjectAttribute() {

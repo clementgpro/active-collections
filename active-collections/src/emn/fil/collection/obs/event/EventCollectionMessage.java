@@ -1,6 +1,8 @@
 package emn.fil.collection.obs.event;
 
-public class EventCollectionMessage<T> {
+import emn.fil.collection.obs.type.OAbstract;
+
+public class EventCollectionMessage<T extends OAbstract> {
 	/** Element to update. */
 	private T element;
 

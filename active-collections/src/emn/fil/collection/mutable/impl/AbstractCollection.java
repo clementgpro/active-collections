@@ -172,7 +172,7 @@ public abstract class AbstractCollection<T extends OAbstract> extends Subject<T>
 		{
 			if (func.test(element))
 			{
-				newList.add((T) element.copy());
+				newList.add(element.copy());
 			}
 		}
 		AbstractImmutableCollection<T> b = this.createCollectionTypeWhenSelec(newList, func);

@@ -1,5 +1,7 @@
 package emn.fil.collection.immutable.interfaces;
 
-public interface IImmutableUniqueness<T> {
+import emn.fil.collection.obs.type.OAbstract;
+
+public interface IImmutableUniqueness<T extends OAbstract> {
 
 }

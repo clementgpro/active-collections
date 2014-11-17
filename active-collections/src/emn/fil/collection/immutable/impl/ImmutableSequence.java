@@ -8,8 +8,9 @@ import java.util.function.Predicate;
 
 import emn.fil.collection.immutable.interfaces.IImmutableOrdered;
 import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class ImmutableSequence<T> extends ImmutableBag<T> implements IImmutableOrdered<T> {
+public class ImmutableSequence<T extends OAbstract> extends ImmutableBag<T> implements IImmutableOrdered<T> {
 
 	public ImmutableSequence(List<T> content) {
 		super(content);

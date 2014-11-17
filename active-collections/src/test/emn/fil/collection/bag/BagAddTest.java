@@ -7,10 +7,13 @@ import org.junit.Test;
 import emn.fil.collection.obs.type.OInteger;
 import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.impl.Bag;
+import emn.fil.collection.mutable.impl.Sequence;
+import emn.fil.collection.mutable.interfaces.ICollection;
+import emn.fil.collection.mutable.interfaces.IOrdered;
 
 public class BagAddTest {
 
-	private final AbstractCollection<OInteger> a;
+	private final ICollection<OInteger> a;
 
 	public BagAddTest() {
 		this.a = new Bag<OInteger>();

@@ -6,8 +6,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import emn.fil.collection.obs.event.EventCollectionMessage;
+import emn.fil.collection.obs.type.OAbstract;
 
-public class ImmutableOrderedSet<T> extends ImmutableSet<T> {
+public class ImmutableOrderedSet<T extends OAbstract> extends ImmutableSet<T> {
 
 	private ImmutableSequence<T> sequence;
 
