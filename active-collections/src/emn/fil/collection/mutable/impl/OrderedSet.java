@@ -39,6 +39,7 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	public void add(int index, T element) {
 		if (!this.content.contains(element))
 		{
+			element.addObserver(this);
 			this.content.add(index, element);
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
 		}
