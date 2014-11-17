@@ -5,6 +5,7 @@ Implementation of active collections.
 This project is based on the article: Active Operations on Collections. Olivier Beaudoux, Arnaud Blouin, Olivier Barais, Jean-Marc Jezequel. MoDELS 2010. Springer. 2010. http://hal.archives-ouvertes.fr/docs/00/54/27/63/PDF/Beaudoux10a.pdf
 
 Some examples about what you can do using active-collections :
+
 	ICollection<OInteger> a = new Bag<OInteger>(new ArrayList<OInteger>() {
 		{
 			add(new OInteger(1));
