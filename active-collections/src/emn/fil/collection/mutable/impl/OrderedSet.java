@@ -44,7 +44,7 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
+	public AbstractCollection<T> createCollectionType(List<T> newList, AbstractCollection<T> b) {
 		AbstractCollection<T> c;
 		if (b instanceof Bag)
 		{
@@ -67,21 +67,21 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
+	public AbstractCollection<T> createCollectionTypeWhenSelec(List<T> newList, Predicate<T> func) {
 		AbstractCollection<T> c = new OrderedSet<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
+	public AbstractCollection<T> createCollectionTypeWhenApply(List<T> newList, Function<T, T> func) {
 		AbstractCollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
 	
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
+	public AbstractCollection<T> createCollectionTypeWhenSort(List<T> newList, Comparator<T> functionSort) {
 		AbstractCollection<T> c = new OrderedSet<T>(newList);
 		link(c);
 		return c;

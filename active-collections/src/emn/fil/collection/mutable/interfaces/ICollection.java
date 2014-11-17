@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import emn.fil.collection.mutable.impl.AbstractCollection;
+import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.type.OAbstract;
 
 public interface ICollection<T extends OAbstract> {
@@ -42,6 +43,23 @@ public interface ICollection<T extends OAbstract> {
 	 *            the element to add
 	 */
 	public void add(final T element);
+	
+	/**
+	 * Add the element in the list following the type of the collection itself.
+	 * 
+	 * @param element
+	 *            the element to add
+	 */
+	public void add(EventCollectionMessage<T> event);
+	
+	/**
+	 * Remove the element in the list following the type of the collection
+	 * itself.
+	 * 
+	 * @param element
+	 *            the element to add
+	 */
+	public void remove(EventCollectionMessage<T> event);
 
 	/**
 	 * Remove the element to the collection.

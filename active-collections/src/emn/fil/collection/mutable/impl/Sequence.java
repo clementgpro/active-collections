@@ -44,7 +44,7 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
+	public AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
 		AbstractCollection<T> c;
 		if (b instanceof Bag)
 		{
@@ -63,21 +63,21 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
+	public AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
 		AbstractCollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenApply(final List<T> newList, final Function<T, T> func) {
+	public AbstractCollection<T> createCollectionTypeWhenApply(final List<T> newList, final Function<T, T> func) {
 		AbstractCollection<T> c = new Sequence<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
+	public AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
 		AbstractCollection<T> c = new Sequence<T>(newList);
 		link(c);
 		return c;
@@ -89,7 +89,7 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void add(EventCollectionMessage<T> event) {
+	public void add(EventCollectionMessage<T> event) {
 		if (this.functionSort != null)
 		{
 			final int pos = Collections.binarySearch(getContent(), event.getElement(), this.functionSort);
@@ -116,7 +116,7 @@ public class Sequence<T extends OAbstract> extends Bag<T> implements IOrdered<T>
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void remove(EventCollectionMessage<T> event) {
+	public void remove(EventCollectionMessage<T> event) {
 		if (event.getElement() != null)
 		{
 			getContent().remove(event.getElement());

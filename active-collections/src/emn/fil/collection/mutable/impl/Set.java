@@ -31,7 +31,7 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 		super(content, functionSort);
 	}
 
-	protected boolean add(final List<T> newC, final T element) {
+	public boolean add(final List<T> newC, final T element) {
 		boolean added = false;
 		if (!newC.contains(element))
 		{
@@ -41,7 +41,7 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
+	public AbstractCollection<T> createCollectionType(final List<T> newList, final AbstractCollection<T> b) {
 		AbstractCollection<T> c;
 		if (b instanceof Bag)
 		{
@@ -56,14 +56,14 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
+	public AbstractCollection<T> createCollectionTypeWhenSelec(final List<T> newList, final Predicate<T> func) {
 		AbstractCollection<T> c = new Set<T>(newList, func);
 		link(c);
 		return c;
 	}
 
 	@Override
-	protected AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
+	public AbstractCollection<T> createCollectionTypeWhenSort(final List<T> newList, final Comparator<T> functionSort) {
 		AbstractCollection<T> c = new OrderedSet<T>(newList);
 		link(c);
 		return c;
@@ -75,7 +75,7 @@ public class Set<T extends OAbstract> extends Bag<T> implements IUniqueness<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void add(EventCollectionMessage<T> event) {
+	public void add(EventCollectionMessage<T> event) {
 		if (!this.getContent().contains(event.getElement()))
 		{
 			this.getContent().add(event.getElement());
