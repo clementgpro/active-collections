@@ -11,5 +11,5 @@ public interface ObserverAttribute<T extends OAbstract> {
 	 * @param event
 	 *            contains the element before and after it's been changed
 	 */
-	public void update(EventCollectionAttribute<T> event);
+	public void updateToCollectThatAttrChanged(EventCollectionAttribute<T> event);
 }

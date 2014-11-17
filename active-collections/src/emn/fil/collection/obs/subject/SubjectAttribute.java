@@ -21,7 +21,7 @@ public abstract class SubjectAttribute<T extends OAbstract> {
 	protected void notify(EventCollectionAttribute<T> event) {
 		for (ObserverAttribute<T> o : observers)
 		{
-			o.update(event);
+			o.updateToCollectThatAttrChanged(event);
 		}
 	}
 }
