@@ -27,6 +27,11 @@ public class UpdateUtils<T extends OAbstract> {
 			collection.add(event);
 			break;
 		case REMOVE:
+			if (collection.getFunctionApply() != null)
+			{
+				// Modify element to match the function before adding
+				event.setElement(collection.getFunctionApply().apply(event.getElement()));
+			}
 			collection.remove(event);
 			break;
 		default:
