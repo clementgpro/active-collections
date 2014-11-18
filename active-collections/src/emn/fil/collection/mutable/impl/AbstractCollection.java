@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.mutable.utils.BasicOperationUtils;

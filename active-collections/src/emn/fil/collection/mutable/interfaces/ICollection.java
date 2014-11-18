@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import emn.fil.collection.obs.event.EventCollectionAttribute;
 import emn.fil.collection.obs.event.EventCollectionMessage;
 import emn.fil.collection.obs.observer.Observer;
 import emn.fil.collection.obs.observer.ObserverAttribute;
