@@ -38,13 +38,10 @@ public class OrderedSet<T extends OAbstract> extends Set<T> implements IOrdered<
 		if (!this.content.contains(element))
 		{
 			element.addObserver(this);
-			// manage indexOutOfBound exception
-			final int maxIndex = this.content.size() - 1;
-			if(index > maxIndex){
-				index = maxIndex + 1;
-			}
 			this.content.add(index, element);
 			this.notify(new EventCollectionMessage<T>(element, TypeEventEnum.ADD, index));
+		}else{
+			System.err.println("You've already had " + element + ".");
 		}
 	}
 	
