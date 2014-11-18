@@ -3,7 +3,6 @@ package emn.fil.collection.mutable.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import emn.fil.collection.mutable.impl.AbstractCollection;
 import emn.fil.collection.mutable.interfaces.ICollection;
 import emn.fil.collection.obs.type.OAbstract;
 
