@@ -27,6 +27,11 @@ public class UpdateUtils<T extends OAbstract> {
 			collection.add(event);
 			break;
 		case REMOVE:
+			if (collection.getFunctionApply() != null)
+			{
+				// Modify element to match the function before adding
+				event.setElement(collection.getFunctionApply().apply(event.getElement()));
+			}
 			collection.remove(event);
 			break;
 		default:
@@ -34,9 +39,11 @@ public class UpdateUtils<T extends OAbstract> {
 		}
 	}
 
-	public static <T extends OAbstract> void updateAttributeChanged(AbstractCollection<T> collection, EventCollectionAttribute<? extends OAbstract> event) {
-		T element = (collection.getFunctionApply() != null) ? collection.getFunctionApply().apply(event.getElementBefore()) : event.getElementBefore();
-		
+	public static <T extends OAbstract> void updateAttributeChanged(AbstractCollection<T> collection,
+			EventCollectionAttribute<? extends OAbstract> event) {
+		T element = (collection.getFunctionApply() != null) ? collection.getFunctionApply().apply(event.getElementBefore()) : event
+				.getElementBefore();
+
 		// Check if the element before modification was in this collection
 		if (collection.getContent().contains(element))
 		{
@@ -46,7 +53,7 @@ public class UpdateUtils<T extends OAbstract> {
 				if (collection.getFunctionSelec().test(event.getElementAfter()))
 				{
 					collection.getContent().set(collection.getContent().indexOf(event.getElementBefore()), event.getElementAfter());
-					
+
 					// Notify children
 					collection.notifyAttributeChanged(event);
 				}
@@ -60,7 +67,7 @@ public class UpdateUtils<T extends OAbstract> {
 			else if (collection.getFunctionApply() != null)
 			{
 				collection.getContent().set(collection.getContent().indexOf(element), collection.getFunctionApply().apply(event.getElementAfter()));
-				
+
 				// Notify children
 				collection.notifyAttributeChanged(event);
 			}
@@ -68,10 +75,12 @@ public class UpdateUtils<T extends OAbstract> {
 			{
 				collection.getContent().remove(event.getElementBefore());
 				collection.add(new EventCollectionMessage<T>(event.getElementAfter(), TypeEventEnum.ADD));
-			} else {
+			}
+			else
+			{
 				// case of union, intersection or difference
 				collection.getContent().set(collection.getContent().indexOf(event.getElementBefore()), event.getElementAfter());
-				
+
 				// Notify children
 				collection.notifyAttributeChanged(event);
 			}

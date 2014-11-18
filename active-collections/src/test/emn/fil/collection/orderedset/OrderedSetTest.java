@@ -26,8 +26,7 @@ public class OrderedSetTest {
 		
 		this.a.add(0, new OInteger(1));
 		this.a.add(1, new OInteger(2));
-		this.a.add(2, new OInteger(2));
-		this.a.add(3, new OInteger(3));
+		this.a.add(2, new OInteger(3));
 		
 		this.b.add(0, new OInteger(2));
 		this.b.add(1, new OInteger(3));
@@ -90,5 +89,4 @@ public class OrderedSetTest {
 				new OInteger(2), new OInteger(3)
 		});
 	}
-
 }
