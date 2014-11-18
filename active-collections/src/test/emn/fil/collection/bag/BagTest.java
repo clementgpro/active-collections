@@ -23,16 +23,18 @@ public class BagTest {
 
 	public BagTest() {
 		this.a = new Bag<OInteger>();
-
+		this.b = new Bag<OInteger>();
+		this.d = new Bag<OInteger>();
+		
 		this.a.add(new OInteger(1));
 		this.a.add(new OInteger(2));
 		this.a.add(new OInteger(2));
 		this.a.add(new OInteger(3));
-		this.b = new Bag<OInteger>();
+		
 		this.b.add(new OInteger(2));
 		this.b.add(new OInteger(3));
 		this.b.add(new OInteger(4));
-		this.d = new Bag<OInteger>();
+		
 		this.d.add(new OInteger(2));
 		this.d.add(new OInteger(5));
 	}
